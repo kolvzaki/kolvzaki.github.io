@@ -1,0 +1,577 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="懒狗笔记，记录平时所学">
+  <meta name="author" content="Kolvzaki">
+  <meta name="keywords" content="">
+  <title>Redis分布式 - 学习笔记</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":75,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>懒狗的学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                时间轴
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/pics.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Redis分布式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Kolvzaki
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-01 08:53" pubdate>
+        2021年3月1日 早上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Redis分布式</h1>
+            
+              <p class="note note-info">
+                
+                  本文上一次更新于：4 天前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>学习分布式缓存之前，还应了解<strong>什么是分布式缓存</strong></p>
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><p><strong>本地缓存</strong>:储存在应用服务器中的数据(My batis)<br><strong>分布式缓存</strong>:储存在应用服务器外的数据(Redis)<br><strong>集群</strong>:<strong>同一种服务</strong>的多个节点在一起对系统提供服务的过程<br><strong>分布式</strong>:<strong>多个不同服务的集群</strong>共同对系统提供服务的系统称为分布式系统<br>(分布式是建立在集群的基础上的)</p>
+<h1 id="分布式缓存"><a href="#分布式缓存" class="headerlink" title="分布式缓存"></a>分布式缓存</h1><h2 id="分布式缓存的优点"><a href="#分布式缓存的优点" class="headerlink" title="分布式缓存的优点"></a>分布式缓存的优点</h2><p>服务器宕机或电源断电时，也能够保证数据不会丢失（这也是本地缓存最大的问题）。做到分布式系统的数据共享。</p>
+<h2 id="分布式缓存的实现"><a href="#分布式缓存的实现" class="headerlink" title="分布式缓存的实现"></a>分布式缓存的实现</h2><p>Mybatis二级缓存+Redis实现分布式缓存</p>
+<blockquote>
+<ul>
+<li>在mapper中用<cache/>标签开启二级缓存</li>
+<li>自定义一个cache类替换默认的cache实现类</li>
+<li><cache-ref/>适用于多表查询,实现多表缓存共享(关联关系缓存处理)</li>
+</ul>
+</blockquote>
+<h2 id="缓存的优化策略"><a href="#缓存的优化策略" class="headerlink" title="缓存的优化策略"></a>缓存的优化策略</h2><ul>
+<li>对放入Redis的key优化，key的长度不能过长   **策略:**MD5摘要算法进行处理<blockquote>
+<ul>
+<li>MD5算法特点: </li>
+</ul>
+</blockquote>
+<ol>
+<li>一切文件字符串经过MD5处理后，都会生成32位16进制字符串</li>
+<li>不同内容文件经过md5进行加密，加密结果大概率不一致。 （面试经典问题）</li>
+<li>相同内容经过加密，其加密结果一定一致</li>
+</ol>
+</li>
+</ul>
+<h2 id="相关概念-1"><a href="#相关概念-1" class="headerlink" title="相关概念"></a>相关概念</h2><ul>
+<li>缓存穿透</li>
+<li>缓存雪崩</li>
+<li>缓存击穿</li>
+<li>解决方法</li>
+</ul>
+<h3 id="缓存穿透"><a href="#缓存穿透" class="headerlink" title="缓存穿透"></a>缓存穿透</h3><p>用户<strong>不断</strong>发送请求查询一个缓存和数据库中都<strong>不存在的数据</strong>，导致缓存无法利用的情况叫缓存穿透。此时请求会直接访问数据库，如果请求数量十分巨大，则会导致数据库访问压力大，容易出现宕机挂掉，访问慢等问题。</p>
+<p>解决方法: 用mybatis的cache去解决，将在数据库中没有查询到的结果也进行缓存(key-null),就算下次再进行这个key的查询,也能从cache返回null。</p>
+<h3 id="缓存击穿"><a href="#缓存击穿" class="headerlink" title="缓存击穿"></a>缓存击穿</h3><p><strong>某一个</strong>热点key在某个时间点过期的时候，被大量用户的并发请求进行访问，由于缓存中这个key过期不存在，从而请求会转向去DB加载数据，并进行新的缓存，此时，大量的并发请求可能会让DB压垮宕机。</p>
+<p>解决方法:</p>
+<ol>
+<li>将热点key设为永不失效</li>
+<li>在key即将过期时，通过异步线程重新设置热点key的生存时间</li>
+<li>缓存获取为null时，对从数据库重新加载数据的过程进行上锁，防止请求压垮数据库(分布式锁)</li>
+</ol>
+<h3 id="缓存雪崩"><a href="#缓存雪崩" class="headerlink" title="缓存雪崩"></a>缓存雪崩</h3><p><strong>某个时刻</strong>系统中的全部缓存失效，且客户端传来大量的请求，导致缓存无法利用，大量请求转向DB，导致DB阻塞，挂机，宕机的情况称为缓存雪崩</p>
+<blockquote>
+<p>当业务非常庞大时，不同模块的业务数据不同，在放入缓存时，都会设置一个生存时间<br>解决方法:</p>
+</blockquote>
+<ol>
+<li>缓存永久储存 (业务大不推荐,占用内存)</li>
+<li>不同的业务数据设置不同的生存时间（避免同时失效）</li>
+</ol>
+<h1 id="Redis主从复制"><a href="#Redis主从复制" class="headerlink" title="Redis主从复制"></a>Redis主从复制</h1><p>用于解决数据的<strong>冗余备份</strong>,从节点则只用来同步数据.(没有自动故障转移!)<br><strong>主从架构中，从节点只同步读取数据！不进行写数据</strong></p>
+<blockquote>
+<p>从节点能写数据，但没有意义</p>
+</blockquote>
+<p>不常用，因为主节点宕机了，从节点不能顶替主节点，从而redis引入了哨兵机制</p>
+<h1 id="哨兵机制"><a href="#哨兵机制" class="headerlink" title="哨兵机制"></a>哨兵机制</h1><p>哨兵机制是Redis高可用性的解决方案<br><br>它能够监听所有主服务器及其从服务器，当监视的某个主服务器下线了，宕机了，处于不可用状态时，它能够自动将其这个主服务器下的从服务器升级为主服务器。其余从服务器则会变成新主服务器的从服务器。当原来的主服务器重新上线时，则会变成新主服务器的从服务器<br><strong>哨兵机制就是带有自动故障转移功能的主从架构</strong></p>
+<h2 id="哨兵配置"><a href="#哨兵配置" class="headerlink" title="哨兵配置"></a>哨兵配置</h2><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs smali">sentinel<span class="hljs-built_in"> monitor </span>数据库名字 IP PORT 哨兵数量<br></code></pre></td></tr></table></figure>
+<blockquote>
+</blockquote>
+<ul>
+<li>只有一定数量的哨兵检测到主服务器确实宕机了，才会进行主从交换</li>
+<li>多个数量的哨兵会根据选举机制，选出新的主服务器(防止脑裂问题)</li>
+</ul>
+<h2 id="哨兵运行-Windows环境"><a href="#哨兵运行-Windows环境" class="headerlink" title="哨兵运行(Windows环境)"></a>哨兵运行(Windows环境)</h2><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">redis-<span class="hljs-keyword">server</span> 主服务器下的sentinel.conf <span class="hljs-comment">--sentinel</span><br></code></pre></td></tr></table></figure>
+<h2 id="局限"><a href="#局限" class="headerlink" title="局限"></a>局限</h2><ul>
+<li>不能处理单节点的并发压力问题(单节点处理高并发请求)</li>
+<li>不能处理单节点的物理内存上限问题(单节点记录巨量的操作记录在AOF日志中,AOF会不断增大，直到占满磁盘)</li>
+</ul>
+<h2 id="解决局限性的方法"><a href="#解决局限性的方法" class="headerlink" title="解决局限性的方法"></a>解决局限性的方法</h2><p><strong>Redis集群</strong></p>
+<h1 id="Redis集群"><a href="#Redis集群" class="headerlink" title="Redis集群"></a>Redis集群</h1><blockquote>
+<p>springboot操作哨兵时，要开启哨兵的远程连接模式</p>
+</blockquote>
+<h2 id="集群架构图"><a href="#集群架构图" class="headerlink" title="集群架构图"></a>集群架构图</h2><p><img src="/img/redis-learning/%E9%9B%86%E7%BE%A4/1.png" srcset="/img/loading.gif" alt="集群"></p>
+<h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><ol>
+<li>Redis节点互相连接(Ping-Pong(心跳)机制)，内部用二进制协议优化传输速度和带宽</li>
+<li>集群中超过一半数量以上的节点认为某个节点宕机时，才会确认这个节点宕机(节点建议奇数个，偶数可能会发生歧义)</li>
+<li>客户端能与Redis节点直连，无需代理层，客户端只需连接Redis集群中的任意一个可用节点即可</li>
+<li>对外服务的master节点叫物理节点</li>
+<li>Redis集群把所有的物理节点映射到[0-16383]slot哈希槽(crc16算法)上(slot会被物理节点平均分配，且物理节点数量最大不超过16384)</li>
+</ol>
+<p><strong>CRC16算法</strong></p>
+<ol>
+<li>对集群模式下的所有key进行CRC16计算，计算结果在0-16383之间</li>
+<li>对同一个key进行多次CRC16计算，结果始终一致</li>
+<li>不同的key计算CRC16的结果可能一致</li>
+<li>是能让数据储存在Redis集群中任意一节点的重要原因</li>
+</ol>
+<h2 id="集群创建-Windows环境"><a href="#集群创建-Windows环境" class="headerlink" title="集群创建(Windows环境)"></a>集群创建(Windows环境)</h2><h3 id="配置文件部分"><a href="#配置文件部分" class="headerlink" title="配置文件部分"></a>配置文件部分</h3><ol>
+<li>创建一个主文件夹redis-cluster,用于存放集群的节点</li>
+<li>以每个节点的端口号为名，创建文件夹，并放入redis配置文件</li>
+<li>开始配置，将端口号设置好（比如设置6个节点，则port改为6379-6384），将生成的快照和aof文件名改为”dump-xxxx”,”aof-xxxx”的格式，便于区分</li>
+<li>将bind设置为统一IP（127.0.0.1或者0.0.0.0），保证能够互相连接</li>
+<li>分别修改dir工作目录为当前配置文件目录下(防止出现开启redis服务报can’t not chdir的错误)</li>
+<li>打开aof日志文件功能</li>
+<li>开启cluster集群模式**# cluster-enabled yes**(去掉注释#即可) </li>
+<li>集群配置文件同样以”cluster-config-file nodes-xxxx.conf”格式生成(端口号区分)</li>
+<li>节点超时时间统一设置为5000ms(可选)</li>
+</ol>
+<h3 id="开启集群"><a href="#开启集群" class="headerlink" title="开启集群"></a>开启集群</h3><ul>
+<li>先把配置好的6个节点开启</li>
+</ul>
+<p><strong>注意：网上的方法大都是用ruby脚本来搭建集群，但在Redis for windows 5.0 这版本里，不再使用ruby脚本搭建！而是直接用redis-cli来搭建！</strong></p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns">redis-cli --cluster create  <span class="hljs-number">127.0.0.1</span>:<span class="hljs-number">6379 127.0</span>.<span class="hljs-number">0.1:6380</span> <span class="hljs-number">127.0.0.1</span>:<span class="hljs-number">6381 127.0</span>.<span class="hljs-number">0.1:6382</span> <span class="hljs-number">127.0.0.1</span>:<span class="hljs-number">6383 127.0</span>.<span class="hljs-number">0.1:6384</span> --cluster-replicas <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+<p><strong>create选项后跟着的是已经开启的节点的IP:PORT号</strong><br>–cluster-replicas选项后面跟着的是每个节点所拥有的从节点数<br><br>这里配置的值是1，则6个节点里有3个主节点，3个从节点<br><br>所以在开启时，自动将输入的前3个节点(按先后顺序)配置为主节点，后面三个配置为从节点(按主节点的先后顺序)<br></p>
+<p>输入命令后，按提示输入yes，等待集群创建好即可</p>
+<h3 id="使用集群"><a href="#使用集群" class="headerlink" title="使用集群"></a>使用集群</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">redis-cli -c -p 主节点端口号 <span class="hljs-regexp">//</span>-c表示进入集群模式，不开启则不会出现节点的跳转！集群也不能使用！<br></code></pre></td></tr></table></figure>
+<p><strong>即使连接了从节点，进行数据的读写时，也会发生节点的跳转</strong><br><br><br>其余关于主节点和从节点的增删改,cmd中输入</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stata">redis-<span class="hljs-keyword">cli</span> --<span class="hljs-keyword">cluster</span> <span class="hljs-keyword">help</span> <br></code></pre></td></tr></table></figure>
+<p>查看文档及其相关操作即可</p>
+<h3 id="集群使用注意"><a href="#集群使用注意" class="headerlink" title="集群使用注意"></a>集群使用注意</h3><ol>
+<li>只有主节点才有HashSlot，从节点没有，从节点只负责数据的同步</li>
+<li>主节点不可直接删除(主节点一删除，HashSlot不完整，集群也就不可使用)，从节点能直接删除</li>
+<li>增加新的主节点时，要分配Slot才能用，删除时要先移除拥有的slot才能删除</li>
+<li>修改从节点的所属主节点要连接这个从节点才能修改</li>
+</ol>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>关于Redis的基础部分学习都学完了，👴终于学废了，不说了，继续学</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Redis/">Redis</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Redis/">Redis</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/15/Docker%E5%AD%A6%E4%B9%A0/Docker%E5%AD%A6%E4%B9%A0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Docker学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/02/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/redis%E6%8C%81%E4%B9%85%E5%8C%96/">
+                        <span class="hidden-mobile">redis持久化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+
+</html>

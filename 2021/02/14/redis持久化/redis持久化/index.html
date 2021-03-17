@@ -17,7 +17,7 @@
   <meta name="description" content="懒狗笔记，记录平时所学">
   <meta name="author" content="Kolvzaki">
   <meta name="keywords" content="">
-  <title>初识Markdown - 学习笔记</title>
+  <title>redis持久化 - 学习笔记</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="初识Markdown">
+            <span class="h2" id="subtitle" title="redis持久化">
               
             </span>
 
@@ -177,8 +177,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-08 19:35" pubdate>
-        2021年2月8日 晚上
+      <time datetime="2021-02-14 15:15" pubdate>
+        2021年2月14日 下午
       </time>
     </span>
   
@@ -189,7 +189,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      566 字
+      1.6k 字
     </span>
   
 
@@ -199,7 +199,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      8
        分钟
     </span>
   
@@ -237,7 +237,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">初识Markdown</h1>
+            <h1 style="display: none">redis持久化</h1>
             
               <p class="note note-info">
                 
@@ -246,85 +246,57 @@
               </p>
             
             <div class="markdown-body">
-              <h1 id="Markdown的语法"><a href="#Markdown的语法" class="headerlink" title="Markdown的语法"></a>Markdown的语法</h1><blockquote>
-<p>Markdown是一门标记性的语言，也是我用来写博客必须学会的，所以该博文用于记录Markdown的各种语法，并学会使用Markdown.</p>
-</blockquote>
-<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-comment">//代码块语法:</span><br><span class="hljs-string">&#x27; ```Shell:  代码部分 ``` &#x27;</span><br><span class="hljs-comment">//或者直接使用: </span><br><span class="hljs-string">``</span><span class="hljs-string">` 代码部分  `</span><span class="hljs-string">``</span><br></code></pre></td></tr></table></figure>
-<h3 id="Java的代码块"><a href="#Java的代码块" class="headerlink" title="Java的代码块"></a>Java的代码块</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs Java"><span class="hljs-comment">//用 ``` Java  ``` 即可生成Java样式的代码块，其他语言同理 </span><br><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String []args)</span></span>&#123;<br>	System.out.println(<span class="hljs-string">&quot;Hello Markdown!&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="C系的代码块"><a href="#C系的代码块" class="headerlink" title="C系的代码块"></a>C系的代码块</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs C++"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> <span class="hljs-keyword">const</span> *argv[])</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">&quot;Hello Markdown!&quot;</span>;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="Shell脚本"><a href="#Shell脚本" class="headerlink" title="Shell脚本"></a>Shell脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs Shell">//Linux下的命令<br>pwd<br>mkdir<br>touch<br>gcc...<br></code></pre></td></tr></table></figure>
-
-<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><blockquote>
-<p>标题用#号来表示标题，其对应了HTML的5个H标题</p>
-</blockquote>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs clean"># ---&gt; h1 一级标题<br>## ---&gt; h2 二级标题<br>### ---&gt; h3 三级标题<br>#### ---&gt; h4 四级标题<br>##### ---&gt; h5 五级标题<br>###### ---&gt; h6 六级标题<br></code></pre></td></tr></table></figure>
-<h2 id="与字体有关的语法"><a href="#与字体有关的语法" class="headerlink" title="与字体有关的语法"></a>与字体有关的语法</h2><h3 id="字体加粗"><a href="#字体加粗" class="headerlink" title="字体加粗"></a>字体加粗</h3><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-strong">**内容**</span> 加粗字体,内容跟*号不分离<br></code></pre></td></tr></table></figure>
-<p><strong>Hello Markdown!</strong> </p>
-<h3 id="字体倾斜"><a href="#字体倾斜" class="headerlink" title="字体倾斜"></a>字体倾斜</h3><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asciidoc"><span class="hljs-strong">*内容*</span> 倾斜字体<br></code></pre></td></tr></table></figure>
-<p><em>Hello Markdown!</em></p>
-<h3 id="字体高亮"><a href="#字体高亮" class="headerlink" title="字体高亮"></a>字体高亮</h3><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haml">=<span class="ruby">=内容== 高亮内容</span><br></code></pre></td></tr></table></figure>
-<p>==Hello Markdown!==</p>
-<h3 id="内容删除样式"><a href="#内容删除样式" class="headerlink" title="内容删除样式"></a>内容删除样式</h3><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haml">~~内容~~ 显示删除样式<br></code></pre></td></tr></table></figure>
-<p><del>Hello Markdown!</del></p>
-<h2 id="引用语法"><a href="#引用语法" class="headerlink" title="引用语法"></a>引用语法</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">&gt;</span><span class="bash"> 内容</span> <br><span class="hljs-meta">&gt;</span><span class="bash">&gt; 内容</span><br><span class="hljs-meta">&gt;</span><span class="bash">&gt;&gt; 内容</span><br>输出效果见下面<br></code></pre></td></tr></table></figure>
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>将数据从内存储存到硬盘的过程叫做数据的持久化，这次👴将要学习两种Redis将数据持久化的方法</p>
+<h2 id="快照-Snapshot"><a href="#快照-Snapshot" class="headerlink" title="快照(Snapshot)"></a>快照(Snapshot)</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p><strong>将某一时刻的所有数据写入硬盘中</strong>，是redis默认开启的持久化方式，以.rdb的文件保存，也叫RDB方法</p>
 <blockquote>
-<p>Hello Markdown!</p>
-<blockquote>
-<p>Hello Markdown!</p>
-<blockquote>
-<p>Hello Markdown!</p>
+<p>Windows环境下dump.rdb保存在安装目录中</p>
 </blockquote>
-</blockquote>
-</blockquote>
-<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">//全屏分割线</span><br><span class="hljs-string">***</span><br><span class="hljs-string">//部分分割线</span><br><span class="hljs-meta">---</span><br></code></pre></td></tr></table></figure>
-<hr>
-<hr>
-<h2 id="图片插入"><a href="#图片插入" class="headerlink" title="图片插入"></a>图片插入</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-comment">//在线图片，本体图片的插入</span><br>!<span class="hljs-selector-attr">[图片名]</span>(图片地址)<br></code></pre></td></tr></table></figure>
-<p><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1229424709,3319526529&fm=26&gp=0.jpg" srcset="/img/loading.gif" alt="在线图片样例"></p>
-<blockquote>
-<p>在线图片会涉及到版权，图床的选择等问题！</p>
-</blockquote>
-<hr>
-<p><img src="/img/default.png" srcset="/img/loading.gif" alt="本地图片样例"></p>
-<blockquote>
-<p>本地图片的路径是相对路径！且图片存放路径在/public/img下!</p>
-</blockquote>
-<h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a>超链接</h2><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">[链接名](地址)<br></code></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://github.com/kolvzaki">My GitHub</a></p>
-<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>无序列表<br>- 目录<span class="hljs-number">1</span><br>- 目录<span class="hljs-number">2</span><br>...<br><span class="hljs-regexp">//</span>有序列表<br>序号.名称<br><span class="hljs-number">1</span>.首页<br><span class="hljs-number">2</span>.目录<br><span class="hljs-number">3</span>.... <br></code></pre></td></tr></table></figure>
+<h3 id="生成方法"><a href="#生成方法" class="headerlink" title="生成方法"></a>生成方法</h3><ol>
+<li>客户端用bgsave和save的方法来生成快照</li>
+</ol>
+<p><strong>bgsave和save的区别</strong><br></p>
 <ul>
-<li>目录1</li>
-<li>目录2</li>
-<li>目录3</li>
+<li>客户端接受到bgsave指令时，会fork一个子进程负责生成快照，父进程则继续处理执行命令，最大的好处就是不会阻塞服务端，并保证快照的生成</li>
+<li>客户端接受到save指令时，redis的服务器在快照生成完之前，不会相应其他的命令.处于阻塞状态.（主进程负责快照生成）</li>
 </ul>
-<p>1.首页<br>2.分类<br>3.目录</p>
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">|<span class="hljs-string"> 标题1 </span>|<span class="hljs-string"> 标题2   </span>|<span class="hljs-string"> 长长的标题3 </span>|<span class="hljs-string"> title 4 </span>|<br>|<span class="hljs-string"> ----- </span>|<span class="hljs-string"> --------- </span>|<span class="hljs-string"> ----------- </span>|<span class="hljs-string"> ------- </span>|<br>|<span class="hljs-string"> 内容1 </span>|<span class="hljs-string"> content 2 </span>|<span class="hljs-string">             </span>|<span class="hljs-string">         </span>|<br>|<span class="hljs-string"> 行3  </span>|<span class="hljs-string"> line3     </span>|<span class="hljs-string"> column 3    </span>|<span class="hljs-string">         </span>|<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>服务器配置自动触发</li>
+</ol>
+<p><strong>在redis.windows.config中进行配置</strong>，如果满足save中的任意一个条件，都会进行快照的生成<br><img src="/img/redis-learning/%E6%8C%81%E4%B9%85%E5%8C%96/1.png" srcset="/img/loading.gif"><br>3. 服务端接受shutdown指令<br><strong>当服务端接受到shutdown指令时，会执行save指令，阻塞所有客户端，不再执行任何命令。在save执行完后，再关闭服务器</strong></p>
+<h3 id="存在缺陷"><a href="#存在缺陷" class="headerlink" title="存在缺陷"></a>存在缺陷</h3><p><strong>完成一次快照的生成后，到下一次快照的生成之前，这段时间的数据是没有保障的！也就是说，这段时间的数据容易丢失！</strong></p>
+<h2 id="追加日志文件-AOF"><a href="#追加日志文件-AOF" class="headerlink" title="追加日志文件(AOF)"></a>追加日志文件(AOF)</h2><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><p>将所有客户端执行的命令记录到日志文件中，AOF持久化被执行的命令写入到AOF日志文件的末尾，以此来记录数据发生的变化。只要Redis完整执行一遍aof文件包含的命令，就能恢复aof文件记录的数据集</p>
+<h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p><strong>Redis默认没有开启AOF日志文件</strong>，所以要去redis.windows.conf中开启，搜索append only file,将no改为yes,保存并重启redis后就能使用AOF功能。<br><strong>保存的日志文件默认为appendonlyfile.aof</strong></p>
+<h3 id="追加频率"><a href="#追加频率" class="headerlink" title="追加频率"></a>追加频率</h3><ol>
+<li>always (慎用)</li>
+</ol>
+<p><strong>只要有写命令提交，马上就同步到磁盘中， 这种方法虽然能够保证数据的完整与安全，但这种同步策略会导致要对磁盘进行巨量的写入操作，从而导致redis处理命令的速度受限于磁盘的性能</strong><br>更为重要的是,这种模式对于SSD硬盘来讲，会大大降低其寿命（写入放大问题：<strong>不断</strong>向磁盘中写入少量数据(即小文件)会损耗磁盘）</p>
+<ol start="2">
+<li>everysec(推荐)</li>
+</ol>
+<p><strong>每秒执行一次同步，显式的将多个写命令同步到磁盘中</strong><br><br>该同步策略能够兼顾数据安全和性能，redis每秒同步一次aof文件的性能和不使用任何持久化特性的性能比，没有任何差距，即使系统崩溃，redis也最多丢失一秒内的数据。</p>
+<ol start="3">
+<li>no(不推荐)</li>
+</ol>
+<p><strong>该策略由系统决定何时进行同步</strong><br><br>对性能没有任何影响，但系统一旦崩溃，会丢失一定数量的数据(大意是如果系统决定同步前，系统宕机了，那么同步前的数据就会全部GG)，而且如果硬盘处理写入速度不够快，当缓冲区被等待被写入的数据填满时，redis会进入阻塞态，从而导致redis处理命令的速度变慢(大意是当系统决定开始同步后，如果数据累积到一定程度，大量的数据写入硬盘时，就又会让redis受限于硬盘的性能)。</p>
+<h3 id="修改频率"><a href="#修改频率" class="headerlink" title="修改频率"></a>修改频率</h3><p><strong>Redis默认同步策略为everysec</strong><br><br>一般来说不用修改，但如果有需求，要去配置文件中，查找appendsync，修改对应频率即可.</p>
+<h3 id="存在缺陷-1"><a href="#存在缺陷-1" class="headerlink" title="存在缺陷"></a>存在缺陷</h3><p>虽然能够保证数据的完整性，但不断的同步也会让持久化文件变得越来越大，数据也会变得冗余，例如，<strong>我们调用100次incr test命令，根据AOF持久化机制，这100条命令会被写入AOF日志中</strong>，实际上，有99条命令是多余的，因为要恢复数据库的状态，只需日志中保存一条set test 100足矣。因此为了<strong>压缩AOF文件</strong>，Redis提供了AOF重写机制。</p>
+<h2 id="AOF日志文件重写"><a href="#AOF日志文件重写" class="headerlink" title="AOF日志文件重写"></a>AOF日志文件重写</h2><p><strong>用于解决AOF日志文件过大的问题</strong></p>
+<h3 id="触发重写的方法"><a href="#触发重写的方法" class="headerlink" title="触发重写的方法"></a>触发重写的方法</h3><ol>
+<li>客户端触发重写<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">BGREWRITEAOF <span class="hljs-regexp">//</span>不会阻塞客户端<br></code></pre></td></tr></table></figure></li>
+<li>服务器配置自动触发<br><br>在配置文件中搜索auto-aof-rewrite-percentage后，即可配置，当启用了aof重写机制时，如果aof文件超过min-size(默认64mb),且比上次的aof文件重写后，大了percentage倍后(默认100%)，就会触发自动重写，如果重写很频繁，可以将percentage改大<br>(AOF文件越小，重写也越频繁，当AOF文件非常大时，重写会消耗大量系统资源，所以要将percentage改大,避免频繁重写)</li>
+</ol>
+<h3 id="重写的原理"><a href="#重写的原理" class="headerlink" title="重写的原理"></a>重写的原理</h3><p><strong>重写并没有读取旧AOF文件</strong>而是将整个内存中的数据库内容以命令的方式，重写了一个新的AOF文件，并替换原AOF文件（与快照有点类似）<br><br></p>
 <blockquote>
-<p>生成表格语法很麻烦，建议上网搜相关的快速生成</p>
+<p>说白了就是文件的替换</p>
 </blockquote>
-<table>
-<thead>
-<tr>
-<th>标题1</th>
-<th>标题2</th>
-<th>长长的标题3</th>
-<th>title 4</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>内容1</td>
-<td>content 2</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>行3</td>
-<td>line3</td>
-<td>column 3</td>
-<td></td>
-</tr>
-</tbody></table>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这是👴某种意义上的第一篇博文，也是新的开始，整来这东西希望能改一哈👴的懒癌，再懒下去👴要无了，学习的路线都规划好了，希望不会🕊</p>
+<h4 id="重写的大致流程"><a href="#重写的大致流程" class="headerlink" title="重写的大致流程"></a>重写的大致流程</h4><ul>
+<li>redis先fork一个子进程,子进程会根据当前内存中的数据快照，往临时文件中写入重建数据库状态的命令</li>
+<li>父进程继续处理后续的命令，一方面继续把命令追加写入旧的AOF文件中，另一方面则把收到的新命令缓存起来。(目的是为了保证如果子进程重写失败，不会出现数据丢失等问题)</li>
+<li>子进程完成写入后，发信号通知父进程，父进程则会开始把缓存的新命令写入这个临时文件中</li>
+<li>父进程完成写入后，可以用这个临时文件替换掉旧的AOF文件，后续的命令也会在这个新的AOF文件中进行追加</li>
+</ul>
+<h2 id="持久化总结"><a href="#持久化总结" class="headerlink" title="持久化总结"></a>持久化总结</h2><p>两种持久化方法能同时使用，也能单独使用，甚至不使用，具体使用取决于数据和应用决定<br><strong>无论用哪种，将数据持久化到硬盘中是十分有必要的</strong></p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>好家伙，学到这👴用了快四天的时间，👴果然是个垃圾,这就继续学，不BB了</p>
 
             </div>
             <hr>
@@ -334,7 +306,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Markdown/">Markdown</a>
+                      <a class="hover-with-bg" href="/categories/Redis/">Redis</a>
                     
                   </div>
                 
@@ -342,7 +314,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Markdown/">Markdown</a>
+                      <a class="hover-with-bg" href="/tags/Redis/">Redis</a>
                     
                   </div>
                 
@@ -353,9 +325,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/02/10/%E5%88%9D%E5%A7%8BRedis/%E5%88%9D%E5%A7%8BRedis/">
+                      <a href="/2021/03/01/Redis%E5%88%86%E5%B8%83%E5%BC%8F/Redis%E5%88%86%E5%B8%83%E5%BC%8F/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">初始Redis</span>
+                        <span class="hidden-mobile">Redis分布式</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -363,8 +335,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/02/06/hello-world/">
-                        <span class="hidden-mobile">Hello World</span>
+                      <a href="/2021/02/12/%E4%BA%94%E7%A7%8DValue%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%93%8D%E4%BD%9C/%E4%BA%94%E7%A7%8DValue%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%93%8D%E4%BD%9C/">
+                        <span class="hidden-mobile">五种值类型的操作</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
