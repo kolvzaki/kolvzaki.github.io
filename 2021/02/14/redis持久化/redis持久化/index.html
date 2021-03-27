@@ -241,7 +241,7 @@
             
               <p class="note note-info">
                 
-                  本文上一次更新于：1 个月前
+                  本文上一次更新于：1 分钟前
                 
               </p>
             
@@ -262,7 +262,7 @@
 <ol start="2">
 <li>服务器配置自动触发</li>
 </ol>
-<p><strong>在redis.windows.config中进行配置</strong>，如果满足save中的任意一个条件，都会进行快照的生成<br><img src="/img/redis-learning/%E6%8C%81%E4%B9%85%E5%8C%96/1.png" srcset="/img/loading.gif"><br>3. 服务端接受shutdown指令<br><strong>当服务端接受到shutdown指令时，会执行save指令，阻塞所有客户端，不再执行任何命令。在save执行完后，再关闭服务器</strong></p>
+<p><strong>在redis.windows.config中进行配置</strong>，如果满足save中的任意一个条件，都会进行快照的生成<br><img src="/img/redis-learning/%E6%8C%81%E4%B9%85%E5%8C%96/1.PNG" srcset="/img/loading.gif"><br>3. 服务端接受shutdown指令<br><strong>当服务端接受到shutdown指令时，会执行save指令，阻塞所有客户端，不再执行任何命令。在save执行完后，再关闭服务器</strong></p>
 <h3 id="存在缺陷"><a href="#存在缺陷" class="headerlink" title="存在缺陷"></a>存在缺陷</h3><p><strong>完成一次快照的生成后，到下一次快照的生成之前，这段时间的数据是没有保障的！也就是说，这段时间的数据容易丢失！</strong></p>
 <h2 id="追加日志文件-AOF"><a href="#追加日志文件-AOF" class="headerlink" title="追加日志文件(AOF)"></a>追加日志文件(AOF)</h2><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><p>将所有客户端执行的命令记录到日志文件中，AOF持久化被执行的命令写入到AOF日志文件的末尾，以此来记录数据发生的变化。只要Redis完整执行一遍aof文件包含的命令，就能恢复aof文件记录的数据集</p>
 <h3 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h3><p><strong>Redis默认没有开启AOF日志文件</strong>，所以要去redis.windows.conf中开启，搜索append only file,将no改为yes,保存并重启redis后就能使用AOF功能。<br><strong>保存的日志文件默认为appendonlyfile.aof</strong></p>

@@ -241,68 +241,68 @@
             
               <p class="note note-info">
                 
-                  本文上一次更新于：1 个月前
+                  本文上一次更新于：1 分钟前
                 
               </p>
             
             <div class="markdown-body">
               <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在对redis有个基本的了解以后，相关的键值操作也是少不了的，上篇文章就学习了相关的key操作，而这次👴就开始学习与value有关的操作</p>
-<h1 id="String类型的操作"><a href="#String类型的操作" class="headerlink" title="String类型的操作"></a>String类型的操作</h1><h2 id="String的内存储存"><a href="#String的内存储存" class="headerlink" title="String的内存储存"></a>String的内存储存</h2><p><img src="/img/redis-learning/String/redis0.png" srcset="/img/loading.gif" alt="储存模型"><br>key,value都是String类</p>
+<h1 id="String类型的操作"><a href="#String类型的操作" class="headerlink" title="String类型的操作"></a>String类型的操作</h1><h2 id="String的内存储存"><a href="#String的内存储存" class="headerlink" title="String的内存储存"></a>String的内存储存</h2><p><img src="/img/redis-learning/String/redis0.PNG" srcset="/img/loading.gif" alt="储存模型"><br>key,value都是String类</p>
 <h2 id="设置key-value"><a href="#设置key-value" class="headerlink" title="设置key-value"></a>设置key-value</h2><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-keyword">set</span> key <span class="hljs-comment">value</span> <br></code></pre></td></tr></table></figure>
 <h2 id="获取key-value"><a href="#获取key-value" class="headerlink" title="获取key-value"></a>获取key-value</h2><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">get</span> <span class="hljs-built_in">key</span><br></code></pre></td></tr></table></figure>
 <h2 id="设置-获取多个key-value"><a href="#设置-获取多个key-value" class="headerlink" title="设置/获取多个key-value"></a>设置/获取多个key-value</h2><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-function"><span class="hljs-title">mset</span></span> key value key value key value...<br><span class="hljs-function"><span class="hljs-title">mget</span></span> key1 key2 key3...<br></code></pre></td></tr></table></figure>
-<p><img src="/img/redis-learning/String/redis14.png" srcset="/img/loading.gif" alt="mget&amp;mset"></p>
+<p><img src="/img/redis-learning/String/redis14.PNG" srcset="/img/loading.gif" alt="mget&amp;mset"></p>
 <hr>
 <h2 id="获取并设置新值"><a href="#获取并设置新值" class="headerlink" title="获取并设置新值"></a>获取并设置新值</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">getset key value</span><br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>设置成功会返回原值(如果新值跟旧值相同，也会操作成功)<br><img src="/img/redis-learning/String/redis15.png" srcset="/img/loading.gif" alt="getset"></p>
+<p>设置成功会返回原值(如果新值跟旧值相同，也会操作成功)<br><img src="/img/redis-learning/String/redis15.PNG" srcset="/img/loading.gif" alt="getset"></p>
 </blockquote>
 <hr>
 <h2 id="获取对应key的value长度"><a href="#获取对应key的value长度" class="headerlink" title="获取对应key的value长度"></a>获取对应key的value长度</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss"><span class="hljs-built_in">strlen</span> <span class="hljs-built_in">key</span><br></code></pre></td></tr></table></figure>
-<p><img src="/img/redis-learning/String/redis16.png" srcset="/img/loading.gif" alt="strlen"></p>
+<p><img src="/img/redis-learning/String/redis16.PNG" srcset="/img/loading.gif" alt="strlen"></p>
 <hr>
 <h2 id="追加对应key的value内容"><a href="#追加对应key的value内容" class="headerlink" title="追加对应key的value内容"></a>追加对应key的value内容</h2><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">append</span> <span class="hljs-built_in">key</span><br></code></pre></td></tr></table></figure>
-<p><img src="/img/redis-learning/String/redis17.png" srcset="/img/loading.gif" alt="append"><br><strong>返回的是追加内容后value的长度</strong></p>
+<p><img src="/img/redis-learning/String/redis17.PNG" srcset="/img/loading.gif" alt="append"><br><strong>返回的是追加内容后value的长度</strong></p>
 <hr>
 <h2 id="截取value内容"><a href="#截取value内容" class="headerlink" title="截取value内容"></a>截取value内容</h2><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xquery">getrange<span class="hljs-built_in"> key</span> <span class="hljs-keyword">start</span> <span class="hljs-keyword">end</span> //<span class="hljs-keyword">start</span> <span class="hljs-keyword">end</span>表示索引,从<span class="hljs-number">0</span>开始<br></code></pre></td></tr></table></figure>
-<p><img src="/img/redis-learning/String/redis18.png" srcset="/img/loading.gif" alt="getrange"></p>
+<p><img src="/img/redis-learning/String/redis18.PNG" srcset="/img/loading.gif" alt="getrange"></p>
 <hr>
 <h2 id="设置key-value并指定存活时间"><a href="#设置key-value并指定存活时间" class="headerlink" title="设置key-value并指定存活时间"></a>设置key-value并指定存活时间</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">setex key seconds value <span class="hljs-regexp">//</span>秒<br>psetex key milliseconds value <span class="hljs-regexp">//</span>毫秒<br></code></pre></td></tr></table></figure>
-<p><img src="/img/redis-learning/String/redis19.png" srcset="/img/loading.gif" alt="setex&amp;psetex"></p>
+<p><img src="/img/redis-learning/String/redis19.PNG" srcset="/img/loading.gif" alt="setex&amp;psetex"></p>
 <hr>
 <h2 id="Setnx"><a href="#Setnx" class="headerlink" title="Setnx"></a>Setnx</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">setnx key value</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>如果key存在，返回0，并不做任何操作（不覆盖），如果不存在，返回1，设置key-value</p>
 </blockquote>
-<p><img src="/img/redis-learning/String/redis20.png" srcset="/img/loading.gif" alt="setnx"></p>
+<p><img src="/img/redis-learning/String/redis20.PNG" srcset="/img/loading.gif" alt="setnx"></p>
 <hr>
 <h2 id="原子操作msetnx"><a href="#原子操作msetnx" class="headerlink" title="原子操作msetnx"></a>原子操作msetnx</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">msetnx <span class="hljs-built_in">key</span> value <span class="hljs-built_in">key</span> value <span class="hljs-built_in">key</span> value....<br></code></pre></td></tr></table></figure>
-<p><strong>只要有一个key存在，则不做任何添加操作！</strong><br><img src="/img/redis-learning/String/redis21.png" srcset="/img/loading.gif" alt="msetnx"></p>
+<p><strong>只要有一个key存在，则不做任何添加操作！</strong><br><img src="/img/redis-learning/String/redis21.PNG" srcset="/img/loading.gif" alt="msetnx"></p>
 <hr>
 <h2 id="减操作"><a href="#减操作" class="headerlink" title="减操作"></a>减操作</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss">decr <span class="hljs-built_in">key</span><br>decrby <span class="hljs-built_in">key</span><br></code></pre></td></tr></table></figure>
-<p><strong>只有key对应的value是整型时，操作才会成功！否则会报错</strong><br><img src="/img/redis-learning/String/redis22.png" srcset="/img/loading.gif" alt="decr"></p>
+<p><strong>只有key对应的value是整型时，操作才会成功！否则会报错</strong><br><img src="/img/redis-learning/String/redis22.PNG" srcset="/img/loading.gif" alt="decr"></p>
 <hr>
-<p><img src="/img/redis-learning/String/redis23.png" srcset="/img/loading.gif" alt="decrby"></p>
+<p><img src="/img/redis-learning/String/redis23.PNG" srcset="/img/loading.gif" alt="decrby"></p>
 <hr>
 <h2 id="加操作"><a href="#加操作" class="headerlink" title="加操作"></a>加操作</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss">incr <span class="hljs-built_in">key</span><br>incrby <span class="hljs-built_in">key</span><br></code></pre></td></tr></table></figure>
 <p><strong>同减操作!</strong></p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">incrbyfloat key value<span class="hljs-regexp">//</span>浮点数的加操作<br></code></pre></td></tr></table></figure>
 <blockquote>
-<p>精度保留17位,<strong><em>进1法</em></strong>舍去17位之后的数<br><img src="/img/redis-learning/String/redis24.png" srcset="/img/loading.gif" alt="incrbyfloat"></p>
+<p>精度保留17位,<strong><em>进1法</em></strong>舍去17位之后的数<br><img src="/img/redis-learning/String/redis24.PNG" srcset="/img/loading.gif" alt="incrbyfloat"></p>
 </blockquote>
 <h2 id=""><a href="#" class="headerlink" title=""></a></h2><hr>
-<h1 id="List类型的操作"><a href="#List类型的操作" class="headerlink" title="List类型的操作"></a>List类型的操作</h1><h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p><img src="/img/redis-learning/List/1.png" srcset="/img/loading.gif" alt="内存模型"><br><strong>相当于java中的list集合,元素有序,且可以重复</strong><br>Redis中List是个堆栈，也遵循FILO（先进后出）的原则.</p>
+<h1 id="List类型的操作"><a href="#List类型的操作" class="headerlink" title="List类型的操作"></a>List类型的操作</h1><h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p><img src="/img/redis-learning/List/1.PNG" srcset="/img/loading.gif" alt="内存模型"><br><strong>相当于java中的list集合,元素有序,且可以重复</strong><br>Redis中List是个堆栈，也遵循FILO（先进后出）的原则.</p>
 <h2 id="创建、遍历列表"><a href="#创建、遍历列表" class="headerlink" title="创建、遍历列表"></a>创建、遍历列表</h2><h3 id="创建列表"><a href="#创建列表" class="headerlink" title="创建列表"></a>创建列表</h3><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs maxima">lpush <span class="hljs-built_in">key</span> [value...] //从左<span class="hljs-built_in">push</span><br>lpushx <span class="hljs-built_in">key</span> [value...] //从左<span class="hljs-built_in">push</span>,且<span class="hljs-built_in">key</span>是已经存在的<br>rpush <span class="hljs-built_in">key</span> [value...] //从右<span class="hljs-built_in">push</span><br>rpushx <span class="hljs-built_in">key</span> [value...] //从右<span class="hljs-built_in">push</span>,且<span class="hljs-built_in">key</span>是已经存在的<br></code></pre></td></tr></table></figure>
 <p><strong>lpush最后入栈的元素就是栈首<br>rpush最后入栈的元素就是栈尾</strong></p>
 <ul>
 <li>push成功后返回堆栈长度</li>
 <li>pushx如果key不存在，不会报错，返回0表示key对应的堆栈不存在，如果存在，返回push后的堆栈长度</li>
 <li>pushx不能创建列表<h3 id="遍历列表"><a href="#遍历列表" class="headerlink" title="遍历列表"></a>遍历列表</h3><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-keyword">lrange</span> key start end //遍历某一区间的列表(从栈首遍历)<br></code></pre></td></tr></table></figure>
-<img src="/img/redis-learning/List/2.png" srcset="/img/loading.gif" alt="push&amp;range"></li>
+<img src="/img/redis-learning/List/2.PNG" srcset="/img/loading.gif" alt="push&amp;range"></li>
 </ul>
 <hr>
 <h2 id="移除列表元素"><a href="#移除列表元素" class="headerlink" title="移除列表元素"></a>移除列表元素</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">lpop key <span class="hljs-regexp">//</span>移除并返回栈首的元素<br>rpop key <span class="hljs-regexp">//</span>移除并返回栈尾的元素<br></code></pre></td></tr></table></figure>
-<p><img src="/img/redis-learning/List/3.png" srcset="/img/loading.gif" alt="pop"></p>
+<p><img src="/img/redis-learning/List/3.PNG" srcset="/img/loading.gif" alt="pop"></p>
 <hr>
 <h2 id="获取列表长度"><a href="#获取列表长度" class="headerlink" title="获取列表长度"></a>获取列表长度</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">llen key</span><br></code></pre></td></tr></table></figure>
 
@@ -310,10 +310,10 @@
 <blockquote>
 <p>修改的是key对应列表中索引为index的值,即 <strong>list[index]</strong> 的值</p>
 </blockquote>
-<p><img src="/img/redis-learning/List/4.png" srcset="/img/loading.gif" alt="set"></p>
+<p><img src="/img/redis-learning/List/4.PNG" srcset="/img/loading.gif" alt="set"></p>
 <hr>
 <h2 id="获取元素"><a href="#获取元素" class="headerlink" title="获取元素"></a>获取元素</h2><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-keyword">lindex</span> key index<br></code></pre></td></tr></table></figure>
-<p><strong>获取list[index]的元素</strong><br><img src="/img/redis-learning/List/5.png" srcset="/img/loading.gif" alt="set"></p>
+<p><strong>获取list[index]的元素</strong><br><img src="/img/redis-learning/List/5.PNG" srcset="/img/loading.gif" alt="set"></p>
 <hr>
 <h2 id="删除重复元素"><a href="#删除重复元素" class="headerlink" title="删除重复元素"></a>删除重复元素</h2><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs q">lrem <span class="hljs-built_in">key</span> <span class="hljs-built_in">count</span> <span class="hljs-built_in">value</span><br></code></pre></td></tr></table></figure>
 <p><strong>从左遍历列表，删除count个重复的元素value</strong></p>
@@ -321,7 +321,7 @@
 <li>如果value不存在，则不会报错，只是返回0</li>
 <li>如果value存在，返回的是删除的value个数</li>
 </ul>
-<p><img src="/img/redis-learning/List/6.png" srcset="/img/loading.gif" alt="rem"></p>
+<p><img src="/img/redis-learning/List/6.PNG" srcset="/img/loading.gif" alt="rem"></p>
 <hr>
 <h2 id="截取列表"><a href="#截取列表" class="headerlink" title="截取列表"></a>截取列表</h2><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xquery">ltrim<span class="hljs-built_in"> key</span> <span class="hljs-keyword">start</span> <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
 <p><strong>截取list中start到end的部分</strong></p>
@@ -329,23 +329,23 @@
 <li>截取后key对应的列表<strong>被替换成原先列表中截取的部分</strong>，且截取部分的元素<strong>索引也会从0开始从新编号</strong></li>
 <li>如果截取部分的索引 <strong>不在list的范围内(超出范围)</strong> 那么截取操作的结果也是OK的！！！  <strong>不会报错</strong> ，但截取后key的列表为空(截取部分为空，所以列表也为空)</li>
 </ul>
-<p><img src="/img/redis-learning/List/7.png" srcset="/img/loading.gif" alt="trim"></p>
+<p><img src="/img/redis-learning/List/7.PNG" srcset="/img/loading.gif" alt="trim"></p>
 <hr>
 <h2 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h2><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs tcl"><span class="hljs-keyword">linsert</span> key before value //在<span class="hljs-keyword">list</span>中的before元素前插入value<br><span class="hljs-keyword">linsert</span> key <span class="hljs-keyword">after</span> value //在<span class="hljs-keyword">list</span>中的<span class="hljs-keyword">after</span>元素后插入value<br></code></pre></td></tr></table></figure>
 <ul>
 <li><strong>如果list中存在重复的before(after)元素，则会选取从左遍历的第一个出现的before(after)元素</strong></li>
 <li>返回插入元素后列表的长度</li>
 </ul>
-<p><img src="/img/redis-learning/List/8.png" srcset="/img/loading.gif" alt="insert"></p>
+<p><img src="/img/redis-learning/List/8.PNG" srcset="/img/loading.gif" alt="insert"></p>
 <hr>
-<h1 id="Set类型的操作"><a href="#Set类型的操作" class="headerlink" title="Set类型的操作"></a>Set类型的操作</h1><h2 id="内存模型-1"><a href="#内存模型-1" class="headerlink" title="内存模型"></a>内存模型</h2><p><img src="/img/redis-learning/Set/1.png" srcset="/img/loading.gif" alt="内存模型"><br><strong>特点：是一个元素无序，且元素不可重复的集合</strong></p>
+<h1 id="Set类型的操作"><a href="#Set类型的操作" class="headerlink" title="Set类型的操作"></a>Set类型的操作</h1><h2 id="内存模型-1"><a href="#内存模型-1" class="headerlink" title="内存模型"></a>内存模型</h2><p><img src="/img/redis-learning/Set/1.PNG" srcset="/img/loading.gif" alt="内存模型"><br><strong>特点：是一个元素无序，且元素不可重复的集合</strong></p>
 <h2 id="集合的创建与遍历"><a href="#集合的创建与遍历" class="headerlink" title="集合的创建与遍历"></a>集合的创建与遍历</h2><h3 id="集合的创建"><a href="#集合的创建" class="headerlink" title="集合的创建"></a>集合的创建</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sadd</span> key value or<span class="hljs-meta"> [value...]</span><br></code></pre></td></tr></table></figure>
 <ul>
 <li><strong>创建时，如果value中有重复的，也能成功创建，重复的value会自动的忽略</strong></li>
 <li>创建后返回集合的大小</li>
 </ul>
 <h3 id="集合的遍历"><a href="#集合的遍历" class="headerlink" title="集合的遍历"></a>集合的遍历</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">smembers key</span><br></code></pre></td></tr></table></figure>
-<p><strong>注意！这里输出是有序的是因为Redis会自动比较值大小再输出！并不改变集合本身！这个集合的底层仍是无序的！这与集合的特点不矛盾！</strong><br><img src="/img/redis-learning/Set/2.png" srcset="/img/loading.gif" alt="sadd&amp;smembers"></p>
+<p><strong>注意！这里输出是有序的是因为Redis会自动比较值大小再输出！并不改变集合本身！这个集合的底层仍是无序的！这与集合的特点不矛盾！</strong><br><img src="/img/redis-learning/Set/2.PNG" srcset="/img/loading.gif" alt="sadd&amp;smembers"></p>
 <h2 id="查看集合的大小"><a href="#查看集合的大小" class="headerlink" title="查看集合的大小"></a>查看集合的大小</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">scard key</span><br></code></pre></td></tr></table></figure>
 <ul>
 <li>返回集合大小</li>
@@ -354,12 +354,12 @@
 <ul>
 <li>在集合中spop随机选取count个元素删除，并返回删除的元素,srem则是删除指定的元素</li>
 <li>spop如果删除的个数超过集合的大小，则默认将集合的所有元素删除</li>
-<li>srem如果删除的元素不存在，则不会执行删除操作，返回0<br><img src="/img/redis-learning/Set/3.png" srcset="/img/loading.gif" alt="pop"></li>
+<li>srem如果删除的元素不存在，则不会执行删除操作，返回0<br><img src="/img/redis-learning/Set/3.PNG" srcset="/img/loading.gif" alt="pop"></li>
 </ul>
 <hr>
-<p><img src="/img/redis-learning/Set/4.png" srcset="/img/loading.gif" alt="pop"></p>
+<p><img src="/img/redis-learning/Set/4.PNG" srcset="/img/loading.gif" alt="pop"></p>
 <hr>
-<p><img src="/img/redis-learning/Set/6.png" srcset="/img/loading.gif" alt="rem"></p>
+<p><img src="/img/redis-learning/Set/6.PNG" srcset="/img/loading.gif" alt="rem"></p>
 <hr>
 <h2 id="元素的移动"><a href="#元素的移动" class="headerlink" title="元素的移动"></a>元素的移动</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">smove <span class="hljs-built_in">source</span> destination member<br></code></pre></td></tr></table></figure>
 <ul>
@@ -367,7 +367,7 @@
 <li>移动不存在的member不会报错，返回0(不发生移动)</li>
 <li>移动后，返回移动元素的个数（一次移一个）</li>
 </ul>
-<p><img src="/img/redis-learning/Set/5.png" srcset="/img/loading.gif" alt="smove"></p>
+<p><img src="/img/redis-learning/Set/5.PNG" srcset="/img/loading.gif" alt="smove"></p>
 <hr>
 <h2 id="判断元素是否存在"><a href="#判断元素是否存在" class="headerlink" title="判断元素是否存在"></a>判断元素是否存在</h2><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">sismember <span class="hljs-built_in">key</span> <span class="hljs-built_in">member</span><br></code></pre></td></tr></table></figure>
 
@@ -383,7 +383,7 @@
 <h2 id="求交集"><a href="#求交集" class="headerlink" title="求交集"></a>求交集</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sinter akey bkey</span><br></code></pre></td></tr></table></figure>
 <h2 id="求并集"><a href="#求并集" class="headerlink" title="求并集"></a>求并集</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">sunion akey bkey</span><br></code></pre></td></tr></table></figure>
 <hr>
-<h1 id="ZSet类型的操作"><a href="#ZSet类型的操作" class="headerlink" title="ZSet类型的操作"></a>ZSet类型的操作</h1><h2 id="内存模型-2"><a href="#内存模型-2" class="headerlink" title="内存模型"></a>内存模型</h2><p>特点: 可排序，不重复的set集合 (sortSet) 靠分数排序,不靠元素排序<br><strong>其本质仍然是set，set本身不可排序，靠分数才会让set有序</strong><br><img src="/img/redis-learning/ZSet/1.png" srcset="/img/loading.gif"></p>
+<h1 id="ZSet类型的操作"><a href="#ZSet类型的操作" class="headerlink" title="ZSet类型的操作"></a>ZSet类型的操作</h1><h2 id="内存模型-2"><a href="#内存模型-2" class="headerlink" title="内存模型"></a>内存模型</h2><p>特点: 可排序，不重复的set集合 (sortSet) 靠分数排序,不靠元素排序<br><strong>其本质仍然是set，set本身不可排序，靠分数才会让set有序</strong><br><img src="/img/redis-learning/ZSet/1.PNG" srcset="/img/loading.gif"></p>
 <hr>
 <h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">zadd</span> key<span class="hljs-meta"> [score value ... ]</span><br></code></pre></td></tr></table></figure>
 <ul>
