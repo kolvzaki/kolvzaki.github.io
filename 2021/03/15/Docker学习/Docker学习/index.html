@@ -189,7 +189,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      894 字
+      1.5k 字
     </span>
   
 
@@ -199,7 +199,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      8
        分钟
     </span>
   
@@ -241,7 +241,7 @@
             
               <p class="note note-info">
                 
-                  本文上一次更新于：10 天前
+                  本文上一次更新于：6 个月前
                 
               </p>
             
@@ -264,13 +264,17 @@
 <h2 id="与容器进行交互"><a href="#与容器进行交互" class="headerlink" title="与容器进行交互"></a>与容器进行交互</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker exec -it 容器名||容器id bash <span class="hljs-regexp">//</span>以bash交互方式进行交互，不能缺少！<br><span class="hljs-keyword">exit</span> <span class="hljs-regexp">//</span>退出交互<br></code></pre></td></tr></table></figure>
 <h2 id="容器复制文件到操作系统"><a href="#容器复制文件到操作系统" class="headerlink" title="容器复制文件到操作系统"></a>容器复制文件到操作系统</h2><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs qml">docker cp 容器<span class="hljs-attribute">id:</span><span class="hljs-string">容器内的资源路径 操作系统中的路径</span><br><span class="hljs-string">docker</span> cp 宿主机的资源 容器<span class="hljs-attribute">id:</span><span class="hljs-string">容器路径</span><br></code></pre></td></tr></table></figure>
 <h2 id="查看容器的具体信息"><a href="#查看容器的具体信息" class="headerlink" title="查看容器的具体信息"></a>查看容器的具体信息</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs applescript">docker inspect 容器<span class="hljs-built_in">id</span>||容器<span class="hljs-built_in">name</span><br></code></pre></td></tr></table></figure>
-<h2 id="数据卷-Volume"><a href="#数据卷-Volume" class="headerlink" title="数据卷 Volume"></a>数据卷 Volume</h2><p><strong>作用：</strong><br></p>
+<h2 id="数据卷-Volume"><a href="#数据卷-Volume" class="headerlink" title="数据卷 Volume"></a>数据卷 Volume</h2><p><strong>作用与特点：</strong><br></p>
 <ol>
 <li>实现宿主机与容器之间的文件共享</li>
 <li>持久化数据(Redis,MySQL等)</li>
+<li>实现容器之间数据的共享和重用</li>
+<li>对数据卷的修改会立即生效影响相应的容器</li>
+<li>对数据卷的更新不会影响镜像</li>
+<li>数据卷默认一直存在，即使容器被删除 </li>
 </ol>
 <p>**使用:**启动容器时启用！启动后不能启用</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash"> -v 宿主机目录:容器内目录</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">docker <span class="hljs-keyword">run</span><span class="bash"> -v 宿主机目录:容器内目录 //1.</span><br>docker <span class="hljs-keyword">run</span><span class="bash"> -v 卷名:容器内目录 //2.</span><br>docker <span class="hljs-keyword">volume</span><span class="bash"> ls //查看所有数据卷</span><br>docker <span class="hljs-keyword">volume</span><span class="bash"> inspect 数据卷 //查看某个数据卷细节</span><br>docker <span class="hljs-keyword">volume</span><span class="bash"> prune //删除全部没使用的数据卷</span><br>docker <span class="hljs-keyword">volume</span><span class="bash"> rm 数据卷 </span><br></code></pre></td></tr></table></figure>
 <ol>
 <li>自定义数据卷目录 （该方法会自动清空容器目录中的内容）</li>
 <li>自动创建数据卷目录 (该方法如果宿主机目录不存在，会自动创建该目录，并创建映射，然后再把这个容器映射的目录中的内容，复制到宿主机目录中)</li>
@@ -278,6 +282,14 @@
 <h2 id="打包镜像"><a href="#打包镜像" class="headerlink" title="打包镜像"></a>打包镜像</h2><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">docker commit -m <span class="hljs-string">&quot;描述&quot;</span> -a <span class="hljs-string">&quot;作者&quot;</span> 容器id<span class="hljs-string">||容器名称 打包的名称:镜像标签</span><br></code></pre></td></tr></table></figure>
 <h2 id="备份镜像"><a href="#备份镜像" class="headerlink" title="备份镜像"></a>备份镜像</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs fortran">docker <span class="hljs-keyword">save</span> 镜像名称:标签 -o 文件名<br></code></pre></td></tr></table></figure>
 <h2 id="载入容器"><a href="#载入容器" class="headerlink" title="载入容器"></a>载入容器</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">docker <span class="hljs-keyword">load</span> -i 容器名<br></code></pre></td></tr></table></figure>
+<h1 id="Docker镜像原理"><a href="#Docker镜像原理" class="headerlink" title="Docker镜像原理"></a>Docker镜像原理</h1><p>关键词：<strong>复用，组合</strong><br><br>由于要实现系统级别的隔离，所以每一个镜像都包含了操作系统文件库、镜像依赖库、和镜像本体库这三大类，这也是镜像比较大的原因。<br>复用，组合指的是镜像间可能存在能复用的库，为了实现压缩镜像大小，用分层的方法把这些库组合在一起，从而达到复用的效果。</p>
+<h1 id="Docker网络高级配置"><a href="#Docker网络高级配置" class="headerlink" title="Docker网络高级配置"></a>Docker网络高级配置</h1><p>Docker允许通过外部访问容器或者容器互联的方式来提供网络服务</p>
+<h2 id="Docker容器与操作系统的通信机制"><a href="#Docker容器与操作系统的通信机制" class="headerlink" title="Docker容器与操作系统的通信机制"></a>Docker容器与操作系统的通信机制</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>Docker启动时，自动在宿主机上创建一个虚拟网桥(bridge)，用于通信，且这个网桥会被分配一个IP地址（网关），此后，运行的镜像挂载在这网桥上时，也会被分配到同一网段上<br><br><br>当容器被创建时，同时会创建一对veth pair接口，这对接口一端在容器，一端挂载在网桥上，此时就实现了主机跟容器，容器与容器之间的通信</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>使用docker网桥进行容器间的通信时，应该从应用的角度使用！<strong>（不同应用使用不同的网桥！）</strong></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker network ls <span class="hljs-regexp">//</span>查看网桥配置<br>docker network -d bridge 网桥名称 <br>docker run .... --network 网桥名称 <span class="hljs-regexp">//</span>指定网桥运行,网桥不存在时，不会自动创建网桥<br>docker inspect 网桥<span class="hljs-regexp">//</span>查看网桥配置<br></code></pre></td></tr></table></figure>
+<p>**Tips:**容器启动指定了网桥后，与这个网桥关联的容器都能使用容器名与其他容器通信（docker进行了自动映射）（默认网关不能用名字映射访问！）</p>
+<h2 id="DockerFile"><a href="#DockerFile" class="headerlink" title="DockerFile"></a>DockerFile</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>镜像构建文件，描述文件，自定义构建一个镜像</p>
+<h3 id="核心作用"><a href="#核心作用" class="headerlink" title="核心作用"></a>核心作用</h3><p>用户能够打包自己的应用成镜像，让应用以容器运行</p>
 
             </div>
             <hr>
@@ -306,9 +318,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/20/%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/%E5%AE%9E%E8%AE%AD%E7%AC%94%E8%AE%B0/">
+                      <a href="/2021/03/28/DockerCompose/DockerCompose/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">实训笔记</span>
+                        <span class="hidden-mobile">DockerCompose</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

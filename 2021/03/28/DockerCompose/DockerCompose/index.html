@@ -17,7 +17,7 @@
   <meta name="description" content="懒狗笔记，记录平时所学">
   <meta name="author" content="Kolvzaki">
   <meta name="keywords" content="">
-  <title>实训笔记 - 学习笔记</title>
+  <title>DockerCompose - 学习笔记</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -162,7 +162,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="实训笔记">
+            <span class="h2" id="subtitle" title="DockerCompose">
               
             </span>
 
@@ -177,8 +177,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-20 09:19" pubdate>
-        2021年3月20日 上午
+      <time datetime="2021-03-28 10:12" pubdate>
+        2021年3月28日 上午
       </time>
     </span>
   
@@ -189,7 +189,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      23 字
+      714 字
     </span>
   
 
@@ -199,7 +199,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      4
        分钟
     </span>
   
@@ -237,19 +237,24 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">实训笔记</h1>
+            <h1 style="display: none">DockerCompose</h1>
             
               <p class="note note-info">
                 
-                  本文上一次更新于：8 天前
+                  本文上一次更新于：6 个月前
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h1><h2 id="微服务分布式开发"><a href="#微服务分布式开发" class="headerlink" title="微服务分布式开发"></a>微服务分布式开发</h2><ol>
-<li>Springboot+Springcloud   基于Restful风格服务</li>
-<li>Dubbo  阿里开源</li>
+              <h1 id="认识DockerCompose"><a href="#认识DockerCompose" class="headerlink" title="认识DockerCompose"></a>认识DockerCompose</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>负责对docker容器集群的快速编排</p>
+<h2 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h2><ol>
+<li>服务(Service): 一个应用的容器，服务可以存在多个</li>
+<li>项目(Project): 由一组关联的应用容器组成的一个完整的业务单元，在”docker-compose.yml”中定义</li>
 </ol>
+<h2 id="写法"><a href="#写法" class="headerlink" title="写法"></a>写法</h2><p>例子：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">version:</span> <span class="hljs-string">&quot;x.x&quot;</span> <span class="hljs-meta">#docker版本</span><br><br><span class="hljs-symbol">services:</span><br><span class="hljs-symbol">	tomcat:</span> <span class="hljs-meta">#服务名</span><br><span class="hljs-symbol">		image:</span> <span class="hljs-meta">#镜像名或镜像id</span><br><span class="hljs-symbol">		container_name:</span> mycat <span class="hljs-meta">#--name=mycat,容器名</span><br><span class="hljs-symbol">		ports:</span> <span class="hljs-meta">#宿主机与容器端口号映射</span><br>			- <span class="hljs-string">&quot;8080:8080&quot;</span> <span class="hljs-meta">#用字符串形式写端口号，否则会按60进制来处理这个数据，以至出错</span><br><span class="hljs-symbol">		volumes:</span> <span class="hljs-comment">//数据卷指定</span><br>			- <span class="hljs-meta-keyword">/root/</span>apps:<span class="hljs-meta-keyword">/usr/</span>local<span class="hljs-meta-keyword">/tomcat/</span>webapps <span class="hljs-meta">#绝对路径映射</span><br>			- tomcatwebapps:<span class="hljs-meta-keyword">/usr/</span>local<span class="hljs-meta-keyword">/tomcat/</span>webapps <span class="hljs-meta">#创建卷自动映射，如果使用这种方式，则要声明volumes!</span><br><span class="hljs-symbol">		networks:</span> <span class="hljs-meta">#指定服务使用哪个网桥，默认用bridge</span><br>			- hello<br>		depends_on： <span class="hljs-meta">#表示这个容器依赖于哪些容器，在这些容器启动后才会启动（不是这些服务启动完后才启动！！）</span><br>			- mysql<br>			- redis<br>			- .... <span class="hljs-meta">#服务名</span><br><span class="hljs-symbol">		healthcheck:</span> <span class="hljs-meta">#心跳检测</span><br><span class="hljs-symbol">			test:</span> [<span class="hljs-string">&quot;cmd&quot;</span>,<span class="hljs-string">&quot;curl&quot;</span>,<span class="hljs-string">&quot;-f&quot;</span>,<span class="hljs-string">&quot;http://localhost&quot;</span>]<br><span class="hljs-symbol">			interval:</span> <span class="hljs-number">1</span>m30s<br><span class="hljs-symbol">			timeout:</span> <span class="hljs-number">10</span>s<br><span class="hljs-symbol">			retries:</span> <span class="hljs-number">3</span><br><span class="hljs-symbol">		sysctls:</span> <span class="hljs-meta">#部分容器需要修改系统内部参数，否则会无法启动</span><br>			net.core.somaxconn: <span class="hljs-number">1024</span><br>			net.ipv4.tcp_syncookies: <span class="hljs-number">0</span><br><br><span class="hljs-symbol">		ulimits:</span> <span class="hljs-meta">#修改容器中系统内部进程数限制</span><br><span class="hljs-symbol">			nproc:</span> <span class="hljs-number">65535</span><br><span class="hljs-symbol">			nofile:</span><br><span class="hljs-symbol">				soft:</span> <span class="hljs-number">20000</span><br><span class="hljs-symbol">				hard:</span> <span class="hljs-number">40000</span><br><span class="hljs-symbol">		demo:</span><br><span class="hljs-symbol">			build:</span> <span class="hljs-meta">#启动服务时，将指定dockerfile打包成镜像，再运行该镜像</span><br><span class="hljs-symbol">				context:</span> demo <span class="hljs-meta">#指定dockerfile上下文目录所在目录</span><br><span class="hljs-symbol">				dockerfile:</span> XXXX <br><br><span class="hljs-symbol">	mysql:</span><br>		....<br><span class="hljs-symbol">		environment:</span><br>			- MYSQL_ROOT_PASSWORD = root <span class="hljs-meta">#环境搭配</span><br><span class="hljs-symbol">		env_file:</span> <span class="hljs-meta">#将environment中的配置写入配置文件中更为安全，必须是.env文件</span><br>			- mysql.env <span class="hljs-meta">#配置文件路径名 </span><br><span class="hljs-symbol">	redis:</span><br>		....<br><span class="hljs-symbol">		command:</span> <span class="hljs-string">&quot;redis-server --appendonly yes&quot;</span> <span class="hljs-meta">#运行后覆盖容器内内容默认命令，开启持久化</span><br><br><br><span class="hljs-symbol">volumes:</span> <span class="hljs-comment">//声明服务中自动创建的卷名</span><br><span class="hljs-symbol">	tomcatwebapps:</span> <span class="hljs-meta">#声明自动创建的卷名 compose会自动在该卷名前加入项目名</span><br>		external： <span class="hljs-meta">#是否强制使用指定卷名，如果为true，则一定要先在启动前手动创建该卷，否则会报错</span><br>			false			<br></code></pre></td></tr></table></figure>
+<h2 id="Compose常用命令"><a href="#Compose常用命令" class="headerlink" title="Compose常用命令"></a>Compose常用命令</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs awk">docker-compose up -f xxx.yml -d <span class="hljs-regexp">//</span>后台运行对应yml的容器服务<br>docker-compose down <span class="hljs-regexp">//</span>关闭所有服务以及自动创建的网桥，不会关闭数据卷<br>docker-compose exec xxx bash<span class="hljs-regexp">//</span>进入某个容器中进行交互，xxx指yml中的服务名<br>docker-compose ps <span class="hljs-regexp">//</span>展示docker compose中正在运行的容器<br>docker-compose restert [服务名]<span class="hljs-regexp">//</span>重启项目中的某个服务，默认重启整个项目<br>docker-compose rm -fv [服务名] <span class="hljs-regexp">//</span>强删某个服务及其数据卷<br>docker-compose start [服务名]<br>docker-compose stop [服务名]<br>docker-compose top [服务名] <span class="hljs-regexp">//</span>查看某个服务正在运行的进程<br>docker-compose pause [服务名] <span class="hljs-regexp">//</span>暂停某个服务<br>docker-compose unpause [服务名] <span class="hljs-regexp">//</span>取消暂停<br>docker-compose logs [服务名] <span class="hljs-regexp">//</span>查看服务日志<br></code></pre></td></tr></table></figure>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>粗糙的学完了，咕了好久，懒癌晚期了，麻了</p>
 
             </div>
             <hr>
@@ -259,7 +264,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%AE%9E%E8%AE%AD/">实训</a>
+                      <a class="hover-with-bg" href="/categories/Docker/">Docker</a>
                     
                   </div>
                 
@@ -267,7 +272,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%AE%9E%E8%AE%AD/">实训</a>
+                      <a class="hover-with-bg" href="/tags/Docker/">Docker</a>
                     
                   </div>
                 
@@ -277,6 +282,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/03/31/RabbitMQ/RabbitMQ/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">RabbitMQ学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

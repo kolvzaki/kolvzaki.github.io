@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="懒狗笔记，记录平时所学">
+  <meta name="author" content="Kolvzaki">
+  <meta name="keywords" content="">
+  <title>RabbitMQ学习 - 学习笔记</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":75,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>懒狗的学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                时间轴
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/pics.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="RabbitMQ学习">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Kolvzaki
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-31 22:12" pubdate>
+        2021年3月31日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">RabbitMQ学习</h1>
+            
+              <p class="note note-info">
+                
+                  本文上一次更新于：6 个月前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="初识RabbitMQ"><a href="#初识RabbitMQ" class="headerlink" title="初识RabbitMQ"></a>初识RabbitMQ</h1><h2 id="什么是消息中间件-MQ"><a href="#什么是消息中间件-MQ" class="headerlink" title="什么是消息中间件(MQ)"></a>什么是消息中间件(MQ)</h2><p>基于<strong>队列</strong>模型实现同步/异步传输数据</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用:"></a>作用:</h3><p>实现支撑高并发，异步解耦，流量削峰，降低耦合度</p>
+<h2 id="核心概念-名词"><a href="#核心概念-名词" class="headerlink" title="核心概念/名词"></a>核心概念/名词</h2><ol>
+<li>Producer: 生产者，投递消息到MQ服务器端</li>
+<li>Consumer: 消费者，从MQ服务器端获取消息处理业务逻辑</li>
+<li>Broker: MQ服务器端</li>
+<li>Topic: 根据业务逻辑进行消息分类，话题</li>
+<li>Queue: 存放消息模型，队列，数组，链表</li>
+<li>Message: 生产者产生的消息报文，一般是Json格式</li>
+</ol>
+<h2 id="产生背景"><a href="#产生背景" class="headerlink" title="产生背景"></a>产生背景</h2><ol>
+<li>传统Http请求基于<strong>响应与请求</strong>的模型，在高并发的请求下，客户端的大量请求到达服务器端会有可能让服务器端的请求堆积</li>
+<li>Tomcat服务器每个请求都有独立的线程，如果超过最大线程数，就会将请求缓存到队列中，如果请求堆积过多，则会可能导致tomcat服务器崩溃</li>
+<li>处理复杂的业务逻辑时，耗时过长会造成客户端等待，超时就会发生重试策略，从而引发幂等性问题</li>
+</ol>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ol>
+<li>异步发送短信</li>
+<li>异步发送优惠券</li>
+<li>处理耗时的操作</li>
+</ol>
+<h2 id="mq架构常见问题"><a href="#mq架构常见问题" class="headerlink" title="mq架构常见问题"></a>mq架构常见问题</h2><ol>
+<li><p>生产者投递消息给mq服务器，MQ服务器需要缓存该消息</p>
+</li>
+<li><p>如果mq服务器宕机，消息如何保证不丢失<br>答：持久化机制</p>
+</li>
+<li><p>如果mq服务器接收到生产者的消息时，消费者不在，该消息是否消失？<br>答：不会，因为消息确认机制，mq服务器必须要消费者消费该消息后，返回通知给mq服务器，mq服务器才会从队列中删除该消息</p>
+</li>
+<li><p>消息推送和消息拉取的区别<br>答：<br>MQ服务器将消息推送给消费者：消费者已经和mq服务器保持长连接<br>消费者主动拉取消息：消费者第一次启动上线，与mq服务器进行长连接</p>
+</li>
+</ol>
+<ol start="5">
+<li>MQ如何实现抗高并发，有何缺陷？怎么解决？<br>答：消费者会根据实际能力情况，去拉取MQ服务器端的消息，默认情况下，取出一条消息进行消费；缺陷在于效率过慢，导致延迟问题；解决方法则是实现消费者集群、消费者批量获取消息即可。</li>
+</ol>
+<h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a>RabbitMQ</h2><h3 id="安装与运行"><a href="#安装与运行" class="headerlink" title="安装与运行"></a>安装与运行</h3><ol>
+<li>安装ErLang (ErLang为RabbitMQ的必备环境)</li>
+<li>安装RabbitMQ</li>
+<li>安装控制台插件<br>
+cd到RabbitMQ安装目录的sbin下，执行一下命令安装插件
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs routeros">rabbitmq-plugins <span class="hljs-builtin-name">enable</span> rabbitmq_management<br>rabbitmqctl start_app<br></code></pre></td></tr></table></figure></li>
+<li>浏览器访问127.0.0.1:15627 出现登录页面即可</li>
+</ol>
+<h3 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h3><ol>
+<li><p>Virtual Hosts <br><br>相当于分类类名，存放同类的队列.每个Virtual Hosts之间相互独立，有自己独立的队列和交换机</p>
+</li>
+<li><p>交换机 <br><br>将消息<strong>分发</strong>到某个类的某个队列进行储存(相当于路由)，与Nginx类似</p>
+</li>
+<li><p>控制管理平台<br><br>默认为127.0.0.1:15672进行访问，账户密码都为guest； 25672为rabbitmq集群通信端口号；amqp 5672为rabbitmq内部通信的一个端口号</p>
+</li>
+</ol>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li><p>连接RabbitMQ服务端配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.mq.MqConfig;<br><br><span class="hljs-keyword">import</span> com.rabbitmq.client.Connection;<br><span class="hljs-keyword">import</span> com.rabbitmq.client.ConnectionFactory;<br><br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.util.concurrent.TimeoutException;<br><br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MqConnection</span> </span>&#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> Connection <span class="hljs-title">getConnection</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> IOException, TimeoutException </span>&#123;<br>        ConnectionFactory connectionFactory = <span class="hljs-keyword">new</span> ConnectionFactory();<br><br>        <span class="hljs-comment">//1.连接哪个VH,注意：RabbitMQ 5.0+版本后，只需写VH名称即可，不用添加/</span><br>        connectionFactory.setVirtualHost(<span class="hljs-string">&quot;myVirtualHost&quot;</span>);<br><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        * 2.设置账号密码</span><br><span class="hljs-comment">        * */</span><br>        connectionFactory.setUsername(<span class="hljs-string">&quot;guest&quot;</span>);<br>        connectionFactory.setPassword(<span class="hljs-string">&quot;guest&quot;</span>);<br><br>        <span class="hljs-comment">/*</span><br><span class="hljs-comment">        * 3.mq连接信息地址</span><br><span class="hljs-comment">        * 此处应连接5672端口</span><br><span class="hljs-comment">        * */</span><br>        connectionFactory.setHost(<span class="hljs-string">&quot;127.0.0.1&quot;</span>);<br>        connectionFactory.setPort(<span class="hljs-number">5672</span>);<br><br>        <span class="hljs-keyword">return</span> connectionFactory.newConnection();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>最简单的生产者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.mq.MqRoles;<br><br><span class="hljs-keyword">import</span> com.example.mq.MqConfig.MqConnection;<br><span class="hljs-keyword">import</span> com.rabbitmq.client.Channel;<br><span class="hljs-keyword">import</span> com.rabbitmq.client.Connection;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.util.concurrent.TimeoutException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Producer</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String QueueName = <span class="hljs-string">&quot;myQueue&quot;</span>;<br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String []args)</span> <span class="hljs-keyword">throws</span> IOException, TimeoutException </span>&#123;<br><br>        String msg = <span class="hljs-string">&quot;Hello RabbitMQ!&quot;</span>;<br><br>        <span class="hljs-comment">//1.创建连接</span><br>        Connection connection = MqConnection.getConnection();<br><br>        <span class="hljs-comment">//2.创建通道,参数durable:是否持久化，默认false</span><br>        Channel channel = connection.createChannel();<br>        channel.basicPublish(<span class="hljs-string">&quot;&quot;</span>,QueueName,<span class="hljs-keyword">null</span>,msg.getBytes());<br><br>        <span class="hljs-comment">//3.关闭流程</span><br>        channel.close();<br>        connection.close();<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure></li>
+<li><p>最简单的消费者</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.example.mq.MqRoles;<br><br><span class="hljs-keyword">import</span> com.example.mq.MqConfig.MqConnection;<br><span class="hljs-keyword">import</span> com.rabbitmq.client.*;<br><br><span class="hljs-keyword">import</span> java.io.IOException;<br><span class="hljs-keyword">import</span> java.util.concurrent.TimeoutException;<br><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Consumer</span> </span>&#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> String QueueName = <span class="hljs-string">&quot;myQueue&quot;</span>;<br><br>    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> IOException, TimeoutException </span>&#123;<br>        <span class="hljs-comment">//1.建立连接</span><br>        Connection connection = MqConnection.getConnection();<br><br>        <span class="hljs-comment">//2.设置通道</span><br>        Channel channel = connection.createChannel();<br>        DefaultConsumer defaultConsumer = <span class="hljs-keyword">new</span> DefaultConsumer(channel)&#123;<br>            <span class="hljs-meta">@Override</span><br>            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">handleDelivery</span><span class="hljs-params">(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, <span class="hljs-keyword">byte</span>[] body)</span> <span class="hljs-keyword">throws</span> IOException </span>&#123;<br>                String msg = <span class="hljs-keyword">new</span> String(body,<span class="hljs-string">&quot;UTF-8&quot;</span>);<br>                System.out.println(<span class="hljs-string">&quot;Consumer get message: &quot;</span>+msg);<br>            &#125;<br>        &#125;;<br><br>        <span class="hljs-comment">//3.监听队列</span><br>        <span class="hljs-comment">//autoACK:是否自动签收 true是，false否，一般实际开发是手动签收。</span><br>        channel.basicConsume(QueueName,<span class="hljs-keyword">true</span>,defaultConsumer);<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="MQ如何保证消息不丢失"><a href="#MQ如何保证消息不丢失" class="headerlink" title="MQ如何保证消息不丢失"></a>MQ如何保证消息不丢失</h2><h3 id="从角色来说"><a href="#从角色来说" class="headerlink" title="从角色来说"></a>从角色来说</h3></li>
+<li><p>生产者<br><br>生产者要确保消息投递到服务器端<br>Ack消息确认机制<br>同步或者异步的形式<br>几种方式：<br>①：Confirms<br>②：事务消息 </p>
+</li>
+<li><p>消费者<br><br>消费者只有在成功消费消息后，才能通知服务器端删除该消息(注意:Kafka消费完后，仍然会保留在服务器端一段时间)</p>
+</li>
+</ol>
+<p><strong>如果消费者设置手动签收，那么消费者就不会返回通知给服务器端删除该消息，服务器也不会继续将消息传递给消费者</strong><br>3. 服务器端<br><br>服务器端对队列中的消息进行持久化，持久化到硬盘</p>
+<h2 id="MQ工作队列模型"><a href="#MQ工作队列模型" class="headerlink" title="MQ工作队列模型"></a>MQ工作队列模型</h2><h3 id="均摊消费"><a href="#均摊消费" class="headerlink" title="均摊消费"></a>均摊消费</h3><p>默认的传统队列，存在不公平性，消费能力强的消费者消费信息多，能者多劳</p>
+<h2 id="MQ交换机类型"><a href="#MQ交换机类型" class="headerlink" title="MQ交换机类型"></a>MQ交换机类型</h2><ol>
+<li>Direct Exchange 直连交换机</li>
+<li>Fanout Exchange 扇形交换机</li>
+<li>Topic Exchange 主题交换机</li>
+<li>Headers Exchange 头交换机</li>
+</ol>
+<h2 id="Fanout"><a href="#Fanout" class="headerlink" title="Fanout"></a>Fanout</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><ol>
+<li>创建的几个队列，对应几个消费者</li>
+<li>队列绑定交换机</li>
+<li>生产者投递消息到交换机中，交换机在将消息分配给两个队列中存放起来；</li>
+<li>消费中从队列中获取消息</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/RabbitMQ/">RabbitMQ</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/RabbitMQ/">RabbitMQ</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/10/01/Java%E5%9F%BA%E7%A1%80/Java%E5%9F%BA%E7%A1%80/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Java基础</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/28/DockerCompose/DockerCompose/">
+                        <span class="hidden-mobile">DockerCompose</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+
+</html>

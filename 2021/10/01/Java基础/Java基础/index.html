@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="懒狗笔记，记录平时所学">
+  <meta name="author" content="Kolvzaki">
+  <meta name="keywords" content="">
+  <title>Java基础 - 学习笔记</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.7","typing":{"enable":true,"typeSpeed":75,"cursorChar":"|","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>懒狗的学习笔记</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                时间轴
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/pics.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Java基础">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-author" aria-hidden="true"></i>
+      Kolvzaki
+    </span>
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-01 15:53" pubdate>
+        2021年10月1日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Java基础</h1>
+            
+              <p class="note note-info">
+                
+                  本文上一次更新于：5 分钟前
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>无论大小厂，Java基础都是面试必问的问题，所以在此记录Java基础知识，用以巩固自己的基础，为未来找到心仪的厂，做好准备。<br>题目来源：JavaGuide</p>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="面向对象和面向过程的区别"><a href="#面向对象和面向过程的区别" class="headerlink" title="面向对象和面向过程的区别"></a>面向对象和面向过程的区别</h3><p>答：<br></p>
+<ul>
+<li>面向对象：<strong>易拓展，易维护，易复用，</strong>因为有封装，继承，多态的特性，但一般性能没面向过程高（实例化消耗大量资源）；</li>
+<li>面向过程：<strong>性能比面向对象高，但不容易拓展，维护和复用。</strong></li>
+</ul>
+<h3 id="关于JDK，JRE，JVM"><a href="#关于JDK，JRE，JVM" class="headerlink" title="关于JDK，JRE，JVM"></a>关于JDK，JRE，JVM</h3><p>答：<br></p>
+<ul>
+<li>JVM：运行字节码的虚拟机，不同系统有不同实现，但都能运行同一个字节码，得出相同的结果</li>
+<li>字节码：JVM能够运行，解析的文件，面向JVM</li>
+<li>编译过程： .java -&gt; .class -&gt; 机器码 ,其中，JavaC将.java编译为.class，JVM将.class转换为机器码</li>
+</ul>
+<hr>
+<ul>
+<li>JRE：Java运行时环境，它包含了运行已编译Java程序的所有必备内容，比如JDK,Java类库，命令等，但不能创建，编写新Java程序</li>
+<li>JDK：Java开发者工具包，功能齐全的Java SDK，它除了拥有JRE外，还有编译器JavaC和工具，能够创建和编译程序</li>
+</ul>
+<h3 id="Java和C-的区别"><a href="#Java和C-的区别" class="headerlink" title="Java和C++的区别"></a>Java和C++的区别</h3><p>答:<br></p>
+<ul>
+<li>共同点：都是面向对象，都支持封装，继承和多态</li>
+<li>区别：<ol>
+<li>Java不支持指针操作，C++支持，所以Java程序内存更安全</li>
+<li>Java类不支持多继承，C++支持，但Java接口支持多继承</li>
+<li>Java有内存自动管理机制，不用手动释放内存</li>
+<li>Java没有结束符这一概念</li>
+</ol>
+</li>
+</ul>
+<h3 id="字符型常量和字符串常量的区别"><a href="#字符型常量和字符串常量的区别" class="headerlink" title="字符型常量和字符串常量的区别"></a>字符型常量和字符串常量的区别</h3><p>答:<br></p>
+<ul>
+<li><p>字符常量：</p>
+<ol>
+<li>单引号括住的一个字符</li>
+<li>相当于一个ASCII码整形值，可进行运算</li>
+<li>在Java中占2个字节</li>
+</ol>
+</li>
+<li><p>字符串常量：</p>
+<ol>
+<li>双引号括住的一串字符</li>
+<li>它表示这串字符在内存中的地址</li>
+<li>占多个字节</li>
+</ol>
+</li>
+</ul>
+<h3 id="重载和重写的区别-常问"><a href="#重载和重写的区别-常问" class="headerlink" title="重载和重写的区别(常问)"></a>重载和重写的区别(常问)</h3><p>答：<br></p>
+<ul>
+<li>重载：对于同样一个方法，能够根据参数的不同，作出不同的处理，返回不同的结果</li>
+<li>重写：对于子类继承父类的同一个方法，参数相同，子类作出不同于父类的处理，覆盖父类方法时，就是重写</li>
+</ul>
+<p>其区别在于： </p>
+<ul>
+<li>重载发生在编译期，在同一个类中，重载方法的<strong>方法名必须相同</strong>，参数类型，个数，顺序，返回值和权限修饰符可以不同；</li>
+<li>重写发生在运行期，是子类对父类方法的重新编写，方法名，参数类型，返回值类型必须相同，不能重写private，final，static方法和构造方法，子类的访问权限必须比父类大，异常范围比父类小</li>
+</ul>
+<h3 id="Java面向对象的特性"><a href="#Java面向对象的特性" class="headerlink" title="Java面向对象的特性"></a>Java面向对象的特性</h3><p>答: <br></p>
+<ul>
+<li>封装:将对象的属性私有化，并提供访问方法给外界使用</li>
+<li>继承:在已有类的基础上，进行继承，并建立新的类，子类能够增加新数据和新方法，也能使用除了private外的父类功能。</li>
+<li>多态:程序定义的引用变量所指向的具体类型和通过引用变量调用的方法只有在程序运行时才能确定。实现多态能够通过继承和接口来实现</li>
+</ul>
+<h3 id="String，StringBuffer，StringBuilder的区别"><a href="#String，StringBuffer，StringBuilder的区别" class="headerlink" title="String，StringBuffer，StringBuilder的区别"></a>String，StringBuffer，StringBuilder的区别</h3><p>答:<br></p>
+<ul>
+<li>可变性:String类对象是不可变的(String类用final修饰了保存字符串的字符数组char[])，而Buffer和Builder是可变的</li>
+<li>线程安全性:Builder是非线程安全的(没有同步锁方法)，Stirng是线程安全的(<strong>不可变的</strong>)，Buffer是线程安全的(有同步锁方法)</li>
+<li>性能:Builider&gt;Buffer&gt;String</li>
+</ul>
+<p>使用场景：</p>
+<ul>
+<li>少量数据:String</li>
+<li>单线程大量数据: StringBuilder</li>
+<li>多线程大量数据: StringBuffer</li>
+</ul>
+<h3 id="自动装箱和自动拆箱"><a href="#自动装箱和自动拆箱" class="headerlink" title="自动装箱和自动拆箱"></a>自动装箱和自动拆箱</h3><p>答:<br></p>
+<ul>
+<li>自动装箱：自动将基本数据类型包装成它们对应的引用类型</li>
+<li>自动拆箱：将包装类转换为对应的基本数据类型</li>
+</ul>
+<h3 id="能不能在静态方法中调用非静态成员"><a href="#能不能在静态方法中调用非静态成员" class="headerlink" title="能不能在静态方法中调用非静态成员"></a>能不能在静态方法中调用非静态成员</h3><p>答:<br><br>    不能，因为静态方法无需实例化对象，就能调用，此时如果调用非静态方法，访问非静态成员变量，会报错，所以是非法的</p>
+<h3 id="无参构造方法的作用"><a href="#无参构造方法的作用" class="headerlink" title="无参构造方法的作用"></a>无参构造方法的作用</h3><p>答:<br><br>    调用子类构造方法时，会先调用其父类的构造方法，如果没有调用特定声明的父类构造方法，则会默认调用父类的无参构造方法，如果父类没有该无参构造方法，则会在编译期时报错。</p>
+<h3 id="接口和抽象类的区别"><a href="#接口和抽象类的区别" class="headerlink" title="接口和抽象类的区别"></a>接口和抽象类的区别</h3><p>答:<br></p>
+<ul>
+<li>接口方法默认为public，且方法不能实现(JDK8前)，抽象类能有非抽象方法</li>
+<li>接口中除了static和final修饰过的变量，不能有其他变量，抽象类则能有其他变量</li>
+<li>一个类能实现多个接口，但只能实现一个抽象类。</li>
+<li>接口能够实现多继承，扩展多个接口</li>
+<li>抽象类是对类的抽象，是类的一种设计模板，接口是对行为的抽象，是一种行为规范</li>
+</ul>
+<p><strong>Tips:</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plain">JDK8后，接口能有自己的默认方法和静态方法，还有私有方法，但实现接口的类不能去调用它<br></code></pre></td></tr></table></figure>
+<h3 id="成员变量和局部变量的区别"><a href="#成员变量和局部变量的区别" class="headerlink" title="成员变量和局部变量的区别"></a>成员变量和局部变量的区别</h3><p>答:<br></p>
+<ol>
+<li>从形式上，成员变量属于类中的一部分，局部变量则属于方法中的参数或者方法中定义的变量；</li>
+<li>从访问修饰上，成员变量能够被public，private，static修饰，但局部变量不行，它们都能给final修饰</li>
+<li>从储存方式上，成员变量属于对象的一部分，也储存在堆中，局部变量如果是基本数据类型，则存储在栈中，如果是引用数据类型，则存储在堆中，或者指向常量池中的地址</li>
+<li>从生存周期上，成员变量随对象的创建而存活，局部变量在方法被调用后消失</li>
+<li>成员变量没初值时，会根据类型而自动赋初值（除了final修饰过的），而局部变量不会被赋予初值</li>
+</ol>
+<h3 id="创建对象使用什么运算符？对象实例和对象引用的区别？"><a href="#创建对象使用什么运算符？对象实例和对象引用的区别？" class="headerlink" title="创建对象使用什么运算符？对象实例和对象引用的区别？"></a>创建对象使用什么运算符？对象实例和对象引用的区别？</h3><p>答:<br></p>
+<ol>
+<li>用new运算符创建对象实例</li>
+<li>对象实例存在堆中，对象引用存在栈中</li>
+<li>一个对象引用最多指向一个对象实例，一个对象实例可以被多个对象引用指向</li>
+</ol>
+<h3 id="一个类的构造方法的作用？如果一个类没有构造方法，程序还能正确运行吗？为什么？"><a href="#一个类的构造方法的作用？如果一个类没有构造方法，程序还能正确运行吗？为什么？" class="headerlink" title="一个类的构造方法的作用？如果一个类没有构造方法，程序还能正确运行吗？为什么？"></a>一个类的构造方法的作用？如果一个类没有构造方法，程序还能正确运行吗？为什么？</h3><p>答:<br></p>
+<ul>
+<li>作用是为类对象的初始化工作；</li>
+<li>可以执行，因为Java会自动为每个类提供一个默认的无参构造方法</li>
+</ul>
+<h3 id="构造方法特性"><a href="#构造方法特性" class="headerlink" title="构造方法特性"></a>构造方法特性</h3><p>答:<br></p>
+<ul>
+<li>名字与类名相同</li>
+<li>无返回值，也不能用void声明</li>
+<li>生成类对象时，自动调用<h3 id="静态方法和实例方法的区别"><a href="#静态方法和实例方法的区别" class="headerlink" title="静态方法和实例方法的区别"></a>静态方法和实例方法的区别</h3>答:<br></li>
+<li>静态方法无需创建对象就能调用，而实例方法需要创建对象才能调用</li>
+<li>静态方法只能访问静态资源，而不能访问实例资源，实例方法则没有这个限制</li>
+</ul>
+<h3 id="对象相等和指向对象引用的相等的区别"><a href="#对象相等和指向对象引用的相等的区别" class="headerlink" title="对象相等和指向对象引用的相等的区别"></a>对象相等和指向对象引用的相等的区别</h3><p>答:<br></p>
+<ul>
+<li>对象相等指内存中存放的内容是否相等</li>
+<li>引用相等指它们指向内存的地址是否相等</li>
+</ul>
+<h3 id="与equals"><a href="#与equals" class="headerlink" title="==与equals"></a>==与equals</h3><p>答:<br></p>
+<ul>
+<li>对于基本数据类型，==判断的是值是否相等，对于引用类型，==判断的是两个对象的地址是否相等</li>
+<li>equals判断两个对象是否相等，如果类没有覆盖equals方法，则等价于==比较对象是否相等，如果覆盖equals方法，一般比较值是否相等</li>
+</ul>
+<h3 id="hashCode和equals-常问"><a href="#hashCode和equals-常问" class="headerlink" title="hashCode和equals(常问)"></a>hashCode和equals(常问)</h3><p>答:<br></p>
+<ul>
+<li>hashCode的作用是确定对象在哈希表中的索引位置</li>
+<li>如果两个对象相等，则它的hashCode一定相等，但两个对象hashCode相等，它们也不一定相等，所以重写equals时，也必须重写hashCode方法</li>
+</ul>
+<h3 id="final关键字"><a href="#final关键字" class="headerlink" title="final关键字"></a>final关键字</h3><p>答:<br></p>
+<ul>
+<li>final修饰的是一个基本数据类型时，则这个数值初始化后不能再更改，如果是引用类型，则初始化后不能再指向另一个对象</li>
+<li>修饰一个类，则这个类不能被继承，其所有成员方法都会被指定为final</li>
+</ul>
+<h3 id="Java序列化时，怎么让某些属性不被序列化"><a href="#Java序列化时，怎么让某些属性不被序列化" class="headerlink" title="Java序列化时，怎么让某些属性不被序列化"></a>Java序列化时，怎么让某些属性不被序列化</h3><p>答:<br><br>    用transient关键字修饰属性，从而可以让特定变量不被序列化</p>
+<h3 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h3><p>答:<br></p>
+<ul>
+<li>浅拷贝：对于基本数据类型，进行值传递，对于引用类型数据，则是生成一个新的引用指向同一个被引用数据</li>
+<li>深拷贝：对于基本数据类型，进行值传递，对于引用类型数据，则是创建一个新的对象，并复制其内容</li>
+</ul>
+<h2 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h2><h3 id="List、Set、Map的区别？"><a href="#List、Set、Map的区别？" class="headerlink" title="List、Set、Map的区别？"></a>List、Set、Map的区别？</h3><p>答:<br><br>    - List：存储的元素是有序可重复的<br>    - Set：存储的元素是无序不可重复的<br>    - Map：用键值对进行储存，其中Key是无序不可重复的，Value是无序可重复度的，一个key对应一个value</p>
+<h3 id="ArrayList和LinkedList区别？"><a href="#ArrayList和LinkedList区别？" class="headerlink" title="ArrayList和LinkedList区别？"></a>ArrayList和LinkedList区别？</h3><p>答:<br></p>
+<ul>
+<li>线程安全上：它们都是不同步的，所以不保证线程安全</li>
+<li>底层数据结构： ArrayList底层使用的是Object数组，LinkedList则是双向链表</li>
+<li>插入和删除效率：ArrayList插入和删除受元素位置影响，当在指定位置进行删除和插入时，要对其余元素进行移位，此时时间复杂度为O(n-i)；<br>  LinkedList在指定位置进行删除和插入时，时间复杂度也为O(n),因为需要移动到指定位置才能进行操作；</li>
+<li>是否支持快速随机访问：LinkedList不支持，ArrayList支持，因为ArrayList能通过位置序号来快速访问</li>
+<li>空间占用：ArrayList空间占用主要在list数组尾部的预留空间，LinkedList空间占用主要在每一个元素的结构体</li>
+</ul>
+<h3 id="ArrayList-与-Vector-区别呢-为什么要⽤Arraylist取代Vector？"><a href="#ArrayList-与-Vector-区别呢-为什么要⽤Arraylist取代Vector？" class="headerlink" title="ArrayList 与 Vector 区别呢?为什么要⽤Arraylist取代Vector？"></a>ArrayList 与 Vector 区别呢?为什么要⽤Arraylist取代Vector？</h3><p>答:<br><br>区别：Vector<strong>线程安全，ArrayList线程是不安全的</strong>，它们底层都是Object[]存储的，所以用ArrayList取代Vector</p>
+<h3 id="HashMap和HashTable的区别"><a href="#HashMap和HashTable的区别" class="headerlink" title="HashMap和HashTable的区别"></a>HashMap和HashTable的区别</h3><p>答:<br></p>
+<ul>
+<li>线程安全性：HashMap是线程不安全的，HashTable是线程安全的，因为内部方法大都用过Synchronized修饰过，(或者用CurrentHashMap，它也是线程安全的)</li>
+<li>使用效率：HashMap效率比Table要高</li>
+<li>是否支持空键值对：HashTable不支持空键值对，HashMap支持空键值对，但空键只能有一个，空值能够有多个</li>
+<li>容量和扩容：Map的默认容量为11，每次扩容为原来的2n+1，Table默认容量为16，每次扩容为原来的2倍</li>
+<li>底层数据结构：HashMap会在大于链表阈值时，将链表转换为红黑树，减少检索时间，HashTable没有这样的机制</li>
+</ul>
+<h3 id="HashMap和HashSet的区别"><a href="#HashMap和HashSet的区别" class="headerlink" title="HashMap和HashSet的区别"></a>HashMap和HashSet的区别</h3><p>答:<br></p>
+<ul>
+<li>HashSet是基于HashMap实现的，其主要区别在于Map实现Map接口，Set实现set接口</li>
+<li>Map储存键值对，Set储存的则是对象</li>
+<li>比较时，Map计算hashcode是否相同，Set除了比较hashcode外还通过equals比较</li>
+</ul>
+<h3 id="HashMap-多线程操作导致死循环问题"><a href="#HashMap-多线程操作导致死循环问题" class="headerlink" title="HashMap 多线程操作导致死循环问题"></a>HashMap 多线程操作导致死循环问题</h3><p>答:<br></p>
+<ul>
+<li>并发下，Rehash会造成元素之间形成一个环形循环列表，甚至会造成数据丢失，所以多线程并发下更推荐使用ConcurrentHashMap</li>
+</ul>
+<h3 id="ConcurrentHashMap和HashTable的区别"><a href="#ConcurrentHashMap和HashTable的区别" class="headerlink" title="ConcurrentHashMap和HashTable的区别"></a>ConcurrentHashMap和HashTable的区别</h3><p>答:<br></p>
+<ul>
+<li>主要区别体现在实现线程安全的方式不同</li>
+<li>底层数据结构:Map是采用分段数组+链表/红黑二叉树实现，Table是采用数组+链表</li>
+<li>实现线程安全：JDK8后，Map采用Node数组+链表+红黑树的数据结构，用synchronized和CAS操作，减少锁的竞争，提高并发量，而Table则是只用synchronized实现线程安全，但线程一旦增多，锁的竞争就会增加，从而效率越来越低</li>
+</ul>
+<h3 id="HashSet-LinkedHashSet和TreeSet三者异同"><a href="#HashSet-LinkedHashSet和TreeSet三者异同" class="headerlink" title="HashSet,LinkedHashSet和TreeSet三者异同"></a>HashSet,LinkedHashSet和TreeSet三者异同</h3><p>答:<br></p>
+<ul>
+<li>HashSet是Set的主要实现类，它底层是用HashMap实现，线程不安全，可以存null值</li>
+<li>LinkedHashSet是HashSet的子类，能够按照添加顺序进行遍历</li>
+<li>Treeset底层使用红黑树，能够按照添加元素的顺序进行遍历，排序的方式有自然排序和定制排序,有序，唯一</li>
+</ul>
+<h3 id="实现Collection接口和Map接口"><a href="#实现Collection接口和Map接口" class="headerlink" title="实现Collection接口和Map接口"></a>实现Collection接口和Map接口</h3><ol>
+<li>List<ul>
+<li>ArrayList</li>
+<li>Vector </li>
+<li>LinkedList</li>
+</ul>
+</li>
+<li>Set<ul>
+<li>HashSet</li>
+<li>LinkedHashSet</li>
+<li>TreeSet</li>
+</ul>
+</li>
+<li>Map<ul>
+<li>HashMap</li>
+<li>LinkedHashMap</li>
+<li>HashTable</li>
+<li>TreeMap</li>
+</ul>
+</li>
+</ol>
+<h2 id="线程相关"><a href="#线程相关" class="headerlink" title="线程相关"></a>线程相关</h2><h3 id="线程，进程，程序的概念以及它们的关系"><a href="#线程，进程，程序的概念以及它们的关系" class="headerlink" title="线程，进程，程序的概念以及它们的关系"></a>线程，进程，程序的概念以及它们的关系</h3><p>答:<br></p>
+<ul>
+<li>程序是一种含有指令和数据的文件，它存储在数据存储设备中，是静态代码</li>
+<li>进程是程序执行的一次过程，是运行程序的基本单位，是动态的，一个进程表示一个运行中的程序，每个进程之间相互独立，互不干扰</li>
+<li>线程是进程中的执行单位，一个进程可以拥有多个线程，每个线程之间共享同一个进程的资源和内存空间，每个线程之间能被互相干扰，每个线程都有自己的计数器，私有方法栈和虚拟机栈</li>
+</ul>
+<h3 id="并发和并行的区别"><a href="#并发和并行的区别" class="headerlink" title="并发和并行的区别"></a>并发和并行的区别</h3><p>答:<br></p>
+<ul>
+<li>并发：同一个<strong>时间段</strong>内，多个任务在执行(它们不一定是同时开始)</li>
+<li>并行: 单位时间内，多个任务同时进行</li>
+</ul>
+<h3 id="为啥用多线程，多线程带来的问题"><a href="#为啥用多线程，多线程带来的问题" class="headerlink" title="为啥用多线程，多线程带来的问题"></a>为啥用多线程，多线程带来的问题</h3><p>答:<br></p>
+<ul>
+<li>从计算机角度，使用多线程能够提高效率，减少线程上下文切换，从IT发展角度，能够提升系统的运行效率和并发性能，创造更多价值</li>
+<li>带来的问题：内存泄漏，上下文切换，死锁，数据丢失等</li>
+</ul>
+<h3 id="Java中线程的状态"><a href="#Java中线程的状态" class="headerlink" title="Java中线程的状态"></a>Java中线程的状态</h3><p>答:<br></p>
+<ul>
+<li>NEW 线程被构建，没调用start方法，处于初始态<ul>
+<li>RUNNABLE 线程处于运行态度</li>
+<li>BLOCKED 阻塞态，线程等待获取锁的状态</li>
+<li>WAITING 等待态，线程等待其他线程作出特定操作</li>
+<li>TIME_WAITING 超时等待态，线程在指定时间内自行返回</li>
+<li>TERMINATED 终止态，线程执行完后的状态</li>
+</ul>
+</li>
+</ul>
+<h3 id="什么是死锁？死锁怎么产生的？怎么避免？怎么解决？"><a href="#什么是死锁？死锁怎么产生的？怎么避免？怎么解决？" class="headerlink" title="什么是死锁？死锁怎么产生的？怎么避免？怎么解决？"></a>什么是死锁？死锁怎么产生的？怎么避免？怎么解决？</h3><p>答:<br></p>
+<ol>
+<li>死锁：多个线程同时被阻塞，它们中的一个或者多个都在等某个资源被释放，由于资源都被占用，所以它们都会无限期地处于阻塞态，从而导致程序不能正常结束。</li>
+<li>产生死锁的四个条件：</li>
+</ol>
+<ul>
+<li>互斥条件：资源某一时刻只由一个线程占有</li>
+<li>请求与保持条件：一个线程因请求资源而阻塞时，不会释放已经占有的资源</li>
+<li>不剥夺条件：线程获得的资源在使用完前不能被其他线程剥夺使用，只有使用完后才释放</li>
+<li>循环等待条件：若干线程之间等待资源形成一种环形等待资源状态</li>
+</ul>
+<ol start="3">
+<li>避免死锁的方法：</li>
+</ol>
+<ul>
+<li>破坏保持条件：一次性申请所有需要的资源</li>
+<li>破坏不剥夺条件：占有资源的线程请求不到其他资源时，主动释放当前占有资源</li>
+<li>破坏循环等待条件：线程按规定顺序申请资源，按相反顺序释放资源。</li>
+</ul>
+<h3 id="sleep-和wait-的区别"><a href="#sleep-和wait-的区别" class="headerlink" title="sleep()和wait()的区别"></a>sleep()和wait()的区别</h3><p>答:<br></p>
+<ul>
+<li>sleep()没有释放所，wait()释放锁</li>
+<li></li>
+</ul>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><h3 id="Exception和Error类异常"><a href="#Exception和Error类异常" class="headerlink" title="Exception和Error类异常"></a>Exception和Error类异常</h3><p>答:<br></p>
+<ul>
+<li>两类都有共同的父类Throwable类</li>
+<li>Exception类是程序可处理异常，可用通过try catch来捕获，Exception又可以分为受检查异常(必须处理)和不受检查异常(可以不处理)</li>
+<li>Error为程序无法处理异常，没办法通过catch捕获，例如虚拟机运行错误，虚拟机内存不足，类定义错误等，遇到错误，一般会终止线程</li>
+<li>常用方法有getMessage(),toString(),printStackTrace()等。</li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/categories/Java/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Java/">Java</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                    
+                  </div>
+                
+              </div>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/03/31/RabbitMQ/RabbitMQ/">
+                        <span class="hidden-mobile">RabbitMQ学习</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+
+</html>
